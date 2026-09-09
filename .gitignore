@@ -10,5 +10,9 @@ blog/clean-source/
 blog/translations/
 blog/clean-source.zip
 blog_translated_current.zip
+blog/article.html
+blog/zh-header.html
+blog/zh-footer.html
+blog/image-map.json
 docs/*
 !docs/CV_Inter.pdf
