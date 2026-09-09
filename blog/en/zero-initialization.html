@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>zero-initialization</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../blog.css" />
+</head>
+<body>
+<header class="blog-header"><a class="blog-brand" href="../../index.html">Xianzhe Wang</a></header><main class="article-shell"><a class="back-link" href="../index.html">← All writing</a>
+<h1 id="forget-xavier-initialization-zero-initialization-is-here">Forget
+Xavier Initialization: ZerO Initialization Is Here</h1>
+<p><img src="../assets/31096512b929df40.png" /></p>
+<p>When we think about the most typical workflow for training a
+deep-learning model, what comes to mind? <strong>Given a problem and a
+dataset, we work through the choice of neural-network architecture, tune
+hyperparameters, randomly initialize the parameters, iterate through
+training, evaluate the results, and repeat until a model is finally
+produced.</strong></p>
+<p>If we look carefully at this pipeline, much of its randomness is
+concentrated in parameter initialization. Why do we initialize
+parameters randomly in the first place? Gradient descent needs some
+initial values for the weights. If we simply initialize every weight to
+zero, as one might in a basic linear model, symmetry can prevent
+different neurons from learning distinct features. Random initialization
+provides a practical way out.</p>
+<p>But “random” is a vague idea, and both theory and experience show
+that <strong>the quality of random weight initialization can have a
+major effect on the convergence of a neural network.</strong> Parameters
+that are too large may lead to exploding gradients; parameters that are
+too small may produce vanishing gradients; and poorly controlled
+variance can make training unstable. Reasonable and standardized
+parameter scaling is therefore extremely important, which is one reason
+normalization methods have become so prominent in deep learning.</p>
+<p><img src="../assets/ef1cd15210565b3a.png" /></p>
+<p>These empirical principles gave rise to many random initialization
+schemes, including Xavier and He initialization. <strong>Most of their
+advantages come from maintaining a well-behaved variance through the
+network.</strong> They largely address the problem of stability, but
+they do not eliminate randomness itself. The random seed can therefore
+become a strange kind of additional “hyperparameter.”</p>
+<p>The paper discussed here changes the question entirely: <strong>if we
+could construct a completely deterministic initialization that still
+satisfies the requirements for signal propagation and gradient descent,
+could we eliminate the weaknesses of random initialization and perhaps
+even obtain better performance?</strong></p>
+<p>This TMLR paper proposes an initialization method called
+<strong>ZerO</strong>, which initializes networks using only zeros and
+ones. Without Batch Normalization, it can still train networks hundreds
+of layers deep. Applied to ResNets, it achieves state-of-the-art results
+on several datasets and demonstrates a number of advantages that arise
+specifically from deterministic initialization.</p>
+<p><strong>Paper:</strong><br />
+<em>ZerO Initialization: Initializing Neural Networks with only Zeros
+and Ones</em></p>
+<p><strong>Link:</strong><br />
+<a
+href="https://openreview.net/pdf?id=1AxQpKmiTc">https://openreview.net/pdf?id=1AxQpKmiTc</a></p>
+<h2 id="1-starting-from-identity-initialization">1. Starting from
+Identity Initialization</h2>
+<p>A central difficulty in random initialization is <strong>keeping the
+variance of signals from changing dramatically across neural-network
+layers.</strong> One simple idea is to make the transformation between
+layers preserve the input as directly as possible. If every layer
+initially passes the previous layer’s signal through unchanged, variance
+no longer needs to be carefully balanced.</p>
+<p>That naturally suggests <strong>initializing a neural-network weight
+matrix as an identity matrix, a strategy known as identity
+initialization.</strong></p>
+<p>Identity initialization has an attractive theoretical property called
+<strong>dynamical isometry</strong>, introduced by Saxe and
+collaborators in 2014. Roughly speaking, when the singular values of the
+input-output Jacobian remain close to one, the network has stable signal
+propagation and stable gradient behavior, which should make optimization
+easier. An identity matrix naturally satisfies this condition.</p>
+<p>The problem is that the elegant theory of identity initialization
+usually assumes that adjacent layers have the same dimensionality. In
+real networks that assumption is often too restrictive.</p>
+<p>A natural extension is therefore a <strong>partial identity
+matrix</strong>: preserve the identity structure where the dimensions
+overlap and fill the remaining entries with zeros.</p>
+<p><img src="../assets/67002ccfbfb535f4.png" /></p>
+<p>However, when partial identity matrices are used to initialize
+standard architectures such as ResNets, a phenomenon known as
+<strong>training degeneracy</strong> often appears.</p>
+<p>The paper’s analysis shows that under partial-identity
+initialization, the effective rank of hidden representations can remain
+constrained by the dimensionality of the input, no matter how wide the
+hidden layers are. <strong>In other words, even if the network contains
+a very large hidden dimension, the useful representation can still be
+trapped in a much lower-dimensional subspace determined by the input.
+This severely limits the expressive power of the network.</strong></p>
+<p><img src="../assets/6ab455b9c02dc094.png" /></p>
+<p>The figure above shows a three-layer neural network trained on MNIST
+with partial-identity initialization. The red dashed line marks the
+input dimensionality, 784. <strong>No matter how large the hidden
+representation is, its rank remains below the dimensionality of the
+input throughout training.</strong></p>
+<h2 id="2-hadamard-transforms-and-zero">2. Hadamard Transforms and
+ZerO</h2>
+<p>To avoid the training degeneracy produced by directly using partial
+identity matrices, <strong>the authors propose applying a Hadamard
+transform when initializing the weights.</strong></p>
+<p>Hadamard matrices are familiar in areas such as image and video
+coding. Their entries consist only of +1 and −1, and their rows and
+columns are mutually orthogonal up to scaling. They can also be
+constructed recursively.</p>
+<p><img src="../assets/d4e9800401ccbfee.png" /></p>
+<p>A Hadamard transform is simply a linear transformation based on a
+Hadamard matrix. Intuitively, in a two-dimensional plane it can be
+viewed as rotating the standard coordinate axes by 45 degrees. The
+authors show that <strong>applying a Hadamard transform to the partial
+identity structure can effectively eliminate the damaging
+training-degeneracy behavior.</strong></p>
+<p>The key idea is intuitive. <strong>The degeneracy of a partial
+identity matrix mainly comes from padding with zeros: those zero
+positions prevent some components of the signal from contributing after
+the activation function.</strong> This keeps the representation trapped
+in a restricted dimensional structure. <strong>The Hadamard transform
+“rotates” the basis vectors and breaks the symmetry created by those
+zeros, allowing information to spread across dimensions and avoiding the
+degeneracy.</strong></p>
+<p>There are many possible ways to perform such a rotation, but the
+authors argue that the Hadamard transform is a particularly natural
+choice. The figure below shows how the transform breaks the rank
+bottleneck in the same three-layer MNIST example.</p>
+<p><img src="../assets/cbdf293969329c8d.png" /></p>
+<p>Combining the Hadamard transform with the idea of identity
+initialization gives the <strong>ZerO initialization</strong> method.
+The complete procedure is illustrated below.</p>
+<p><img src="../assets/d9c94cd12b26e2e1.png" /></p>
+<h2 id="3-numerical-experiments">3. Numerical Experiments</h2>
+<p>The paper evaluates ZerO initialization by training ResNet-18 and
+ResNet-50 on CIFAR-10 and ImageNet. The results are shown below.</p>
+<p><img src="../assets/1a31dc57d16729ab.png" /></p>
+<p><strong>Compared with Kaiming initialization and Xavier
+initialization, ZerO achieves lower test error on both
+datasets.</strong></p>
+<p>The authors also compare ZerO against several other initialization
+methods. On both ResNet-18 and ResNet-50, ZerO achieves stronger
+performance.</p>
+<p><img src="../assets/35bd81705d420eb4.png" /></p>
+<p>ZerO can also support substantially deeper networks. <strong>Without
+Batch Normalization, the method successfully trains a 500-layer ResNet
+on CIFAR-10.</strong></p>
+<p><img src="../assets/02ba1e60fbecb487.png" /></p>
+<p>Finally, <strong>the authors successfully apply ZerO to
+Transformers.</strong> They use ZerO to initialize weights in multi-head
+attention and feed-forward layers, while fixing selected attention
+matrices to identity or zero as required by the construction. On
+WikiText-2, ZerO is able to train a 20-layer Transformer and, in most
+settings, outperforms standard initialization.</p>
+<p><img src="../assets/8c0da49d822e9131.png" /></p>
+<p>Overall, ZerO shows attractive properties in hyperparameter
+sensitivity, trainable network depth, and other dimensions.
+<strong>Because the initialization is deterministic, repeated training
+runs also vary less than they do under random initialization, making
+models trained with ZerO more reproducible.</strong></p>
+<h2 id="4-greedy-low-rank-learning">4. Greedy Low-Rank Learning</h2>
+<p>Beyond its practical performance, <strong>the authors observe an even
+more interesting phenomenon during training with ZerO: a low-rank
+learning trajectory.</strong> Hints of this behavior already appear in
+the earlier figures.</p>
+<p><img src="../assets/4af8feed9b61db0b.png" /></p>
+<p>Training from Hadamard-based deterministic weights looks very
+different from training from random weights. <strong>Instead of starting
+immediately with a relatively “complex” network whose weight matrices
+already have high rank, ZerO appears to begin with a simpler network and
+gradually increase its complexity during learning.</strong></p>
+<p>To quantify this behavior, the authors use the stable rank of the
+weight matrix as a proxy for network complexity. The figure below
+compares the stable ranks produced by ZerO and by random initialization
+methods.</p>
+<p><img src="../assets/637479dc64c6b896.png" /></p>
+<p>The upper row shows ResNet-18 trained on CIFAR-10; the lower row
+shows ResNet-50 trained on ImageNet. From left to right, the plots
+examine the first convolutional layer in the second, third, and fourth
+residual-block groups. <strong>ZerO initialization clearly exhibits
+low-rank learning behavior.</strong></p>
+<p>The authors describe this as the first observation in practical
+experiments of <strong>greedy low-rank learning (GLRL)</strong>. GLRL is
+a theoretical property associated with gradient descent: under certain
+limiting initialization assumptions, <strong>gradient descent implicitly
+prefers simpler solutions.</strong> It tends to search the solution
+space in order of increasing matrix rank, moving to higher-rank regions
+only when lower-rank spaces cannot achieve a sufficiently good
+minimum.</p>
+<p><strong>GLRL can help explain why gradient-descent-trained neural
+networks often generalize surprisingly well and why they frequently
+converge to low-rank local or global optima.</strong> Previous
+theoretical derivations relied on idealized initialization assumptions
+that are difficult to realize experimentally. ZerO provides evidence
+that similar low-rank learning behavior can emerge under a practical
+deterministic initialization based on identity structure.</p>
+<h2 id="5-conclusions-and-reflections">5. Conclusions and
+Reflections</h2>
+<p>Theoretical research on deep neural networks is developing rapidly.
+In a sense, <strong>this paper is an example of engineering exploration
+guided directly by neural-network theory.</strong> It begins with the
+desirable dynamical-isometry properties of identity initialization,
+extends the idea using Hadamard transforms, obtains a high-performing
+initialization method, and then uses that method to reveal GLRL behavior
+in realistic experiments.</p>
+<p>Neural-network theory is still far from being the kind of solid,
+unified edifice we associate with mature areas of physics. But this
+paper shows that theory can already provide useful guidance from
+above.</p>
+<p><strong>Instead of treating deep-learning training like repetitive
+assembly-line work—tightening the same screws and bolts again and
+again—it can be far more rewarding to step outside the fixed recipe and
+ask how the machines inside the entire factory are actually
+operating.</strong> That may require a little more mathematics, but
+understanding an unknown black box is also part of the fun of studying
+neural networks.</p>
+</main><footer class="blog-footer">© Xianzhe Wang</footer>
+</body>
+</html>

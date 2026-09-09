@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>algorithm-engineers</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../blog.css" />
+</head>
+<body>
+<header class="blog-header"><a class="blog-brand" href="../../index.html">Xianzhe Wang</a></header><main class="article-shell"><a class="back-link" href="../index.html">← All writing</a>
+<h1 id="the-algorithm-engineers-worldview-test">The Algorithm Engineer's
+Worldview Test</h1>
+<p><img src="../assets/b2658f1860528a70.png" /></p>
+<p>If I type <strong>“How to improve my machine learning
+models”</strong> into Google, I can find a huge variety of techniques
+for improving model performance: hyperparameter tuning, feature
+engineering, ensembles, data augmentation, and much more.</p>
+<p>But if I add one constraint and ask, <strong>“What improves model
+performance the most?”</strong>, the question changes. It is no longer
+simply an engineering problem of listing and stacking techniques; it
+becomes an art of deciding where to spend limited effort.</p>
+<p><img src="../assets/2914ef2107d73256.png" /></p>
+<p>A recent Reddit discussion asked exactly this question: <strong>“In
+your experience, what has the greatest impact on the performance of a
+machine-learning model—hyperparameter tuning, feature engineering,
+ensembling, or something else?”</strong></p>
+<p>Put differently, there are many ways to improve a model, but
+<strong>as an algorithm engineer, where should I invest my limited time
+to get the largest return?</strong></p>
+<p><img src="../assets/590a35e0921d80da.png" /></p>
+<p>Before reading further, imagine a quick poll. What is the first thing
+you think an algorithm engineer should care about most?</p>
+<h2 id="data-is-king">Data Is King</h2>
+<p>If your answer matches the Reddit discussion, <strong>data</strong>
+wins by a large margin. The top comment—“<strong>It is data, young Jedi.
+The data.</strong>”—received 571 upvotes.</p>
+<p><img src="../assets/5de7f5a8315d0c92.png" /></p>
+<p>Many other responses also argued that data is the dominant factor.
+One invoked the familiar principle <strong>“Garbage in, garbage
+out”</strong>: the quality of the entire task ultimately begins with the
+quality of the data.</p>
+<p><img src="../assets/9c47f9b344a43fca.png" /></p>
+<p>Of course, someone jokingly modified the phrase to <strong>“Garbage
+in, state of the art and free money out.”</strong></p>
+<p><img src="../assets/c17f9b751c92b896.png" /></p>
+<p>An algorithm engineer with ten years of experience offered the same
+lesson from practice.</p>
+<p><img src="../assets/2313a3061861a2d5.png" /></p>
+<p>Another commenter argued that time invested in data work usually
+produces the highest return.</p>
+<p><img src="../assets/120a714ec69d9b0c.png" /></p>
+<p>And one response made the same point indirectly with a friendly
+reminder: <strong>“Be nice to the students who label your
+data.”</strong></p>
+<p><img src="../assets/4cad88102cf2db1f.png" /></p>
+<h2 id="feature-engineering">Feature Engineering</h2>
+<p>Some commenters proposed an empirical ordering. Two answers
+independently suggested that, when trying to improve performance, the
+priority should generally be <strong>data first, feature engineering
+second, and model-level work last</strong>, including model choice and
+hyperparameter tuning.</p>
+<p><img src="../assets/4b3cab954d4b8e85.png" /></p>
+<p>Another commenter described model improvement as a process of finding
+a <strong>sweet spot between increasing the amount of data and reducing
+unnecessary model complexity</strong>.</p>
+<p><img src="../assets/fb63eb953453708f.png" /></p>
+<p>Although “data is most important” was the mainstream answer, several
+alternatives were also compelling. Some voted for feature engineering,
+arguing that <strong>feature engineering is how you obtain the right
+data representation to feed into the right model</strong>.</p>
+<p><img src="../assets/07aca60ce4e883a8.png" /></p>
+<p>Another response emphasized that <strong>ensembling will often
+improve performance</strong>, although the author still regarded feature
+engineering and tuning as more important.</p>
+<p><img src="../assets/ceece90c8f671c49.png" /></p>
+<p>Others pointed out that not every task needs heavy manual feature
+engineering and highlighted the role of <strong>pretraining in deep
+learning</strong>.</p>
+<p><img src="../assets/342b95bbbfb9a2b3.png" /></p>
+<h2 id="reframing-the-problem">Reframing the Problem</h2>
+<p>Beyond familiar techniques such as better data, better features, or
+better models, one commenter proposed a different answer:
+<strong>reframing the problem itself may matter even more</strong>. How
+a problem is defined can dramatically change how solvable it is.</p>
+<p>The commenter proposed a simple heuristic: from raw data, through
+preprocessing, to the final trained model, the process should move in a
+direction that does not demand information the data never contained. The
+author called this “entropy,” using the word loosely to mean
+<strong>“whatever you can't measure in a system.”</strong></p>
+<p><img src="../assets/35bd90a2c258e8fd.png" /></p>
+<p>Suppose your raw data contains five years of <strong>daily average
+temperatures</strong>. If you define the task as predicting the future
+day's maximum and minimum temperatures, the model cannot reliably learn
+those quantities because the original data never measured daily maxima
+or minima. If the task remains “predict future daily average
+temperature,” the target is aligned with the information in the
+data.</p>
+<p>You could also simplify the task by reframing it as classification:
+predict whether the future average temperature will be below −10°C,
+between −10°C and 10°C, or above 10°C. Because the problem is easier,
+this formulation may yield a better-performing system.</p>
+<p>The broader point is that <strong>spending time reformulating a
+problem until it is defined correctly can sometimes be more valuable
+than optimizing a model inside a poorly chosen formulation</strong>.</p>
+<p><img src="../assets/930d749aeb765da1.png" /></p>
+<p>Naturally, this heuristic triggered its own discussion. What exactly
+should “entropy” mean here? It may be intuitive in a toy example, but
+how should we reason about it when there are enormous datasets and
+hundreds or thousands of features? Those questions are part of what made
+the original discussion interesting.</p>
+<p><img src="../assets/1f7ae47f1b2cb183.png" /></p>
+<h2 id="other-views">Other Views</h2>
+<p>The strong consensus around data also prompted a useful
+counter-question: <strong>if data matters most, does that make the other
+methods unimportant?</strong> Obviously not. In real projects, obtaining
+more or better data may be impossible, and other tools can become
+decisive.</p>
+<p>For example, model-level interventions are often ranked last in
+generic advice, but in a specialized application <strong>placing an
+attention layer in exactly the right location can produce far more value
+than adding a large amount of irrelevant data</strong>.</p>
+<p>Looking back at the history of AI, many milestone improvements came
+from new model architectures. As one response put it, <strong>most
+architecture changes may fail to help without enough good data—but when
+one truly works, it can be a game changer.</strong></p>
+<p><img src="../assets/ca517efe0acd3526.png" /></p>
+<p>The “data first” answers also raised a deeper question: <strong>what
+do we actually mean by data work?</strong> In highly specialized
+domains, if the most valuable “creative” contribution of an algorithm
+engineer is continually obtaining more and better labeled examples,
+where do those better labels come from? Often, from domain experts. As
+algorithms and tooling become easier to use, <strong>what is the lasting
+advantage of an algorithm engineer over a domain expert who also
+understands the algorithms?</strong></p>
+<p><img src="../assets/988718b5ece1dddd.png" /></p>
+<p>An optimistic answer is that domain expertise and algorithmic
+implementation remain partly separable. The engineer can receive labeled
+data, construct a model, and return predictions. “Data work” may mean
+collecting more samples, augmentation, cleaning, and related operations.
+<strong>Even though an algorithm engineer should understand the problem
+domain, the engineer and the domain expert can still occupy different
+roles in the division of labor.</strong></p>
+<p><img src="../assets/51aca988e5351286.png" /></p>
+<p>A more pessimistic answer is that much of the “better data” an
+engineer receives is actually produced by better labeling. From this
+perspective, <strong>some of the current value—and high salaries—of
+algorithm engineers may reflect the fact that machine-learning tools are
+not yet mature enough for domain experts to use them freely on their
+own.</strong></p>
+<p><img src="../assets/a1fd44a4faecd7de.png" /></p>
+<p>These arguments lead to a more fundamental question: <strong>what is
+the core competence of an algorithm engineer? Should the emphasis be on
+the “algorithm” or on the “engineer”?</strong></p>
+<p>One response offered a useful perspective. Algorithm engineers are
+often tightly associated with machine learning and deep learning, but
+<strong>solving a problem does not necessarily require machine learning
+at all</strong>. Instead of defining the profession around a specific
+class of algorithms, it may be better to emphasize the engineering role:
+choose tools that solve the problem, whether the right tool is
+exhaustive search, statistics, optimization, or machine learning.</p>
+<p><img src="../assets/623b64c55298b4aa.png" /></p>
+<p>Neither models nor data are universal magic bullets. <strong>What an
+algorithm engineer may need most is the ability to solve the actual
+problem under the specific constraints of time, resources, and
+context.</strong></p>
+<p>That is a more active process than blindly tuning hyperparameters,
+cleaning data, or modifying architectures. Instead of memorizing whether
+effort “should” go to data, features, or models, ask what is wrong in
+the current system and select the tool that addresses that
+bottleneck.</p>
+<p><img src="../assets/51963784d08fefbc.png" /></p>
+<h2 id="a-final-thought">A Final Thought</h2>
+<p>Management has a classic “five whys” style example. A factory machine
+fails. Why? A screw came loose. Why did the screw come loose? It had not
+been lubricated. Why was there no lubricant? The worker had not
+maintained the machine on schedule. Why was maintenance not performed?
+Perhaps the management system neither required nor incentivized regular
+maintenance.</p>
+<p><strong>If we stop after the first “why,” a loose screw may look like
+an unavoidable random event. If we keep asking why, the same problem can
+eventually become something that can be addressed through system design
+and management.</strong></p>
+<p><img src="../assets/b608b7f132bd1c2d.png" /></p>
+<p>Model optimization is similar. When facing the question <strong>“My
+model performs poorly—how should I improve it?”</strong>, it may be more
+useful to ask <strong>“What problem am I actually facing right
+now?”</strong> rather than mechanically trying every technique from data
+cleaning to architecture changes. If the bottleneck is data, fix the
+data. If it is the model, fix the model. If the task itself is badly
+framed, redefine it.</p>
+<p>Then the answer to the original question may no longer be “data,”
+“features,” or “models.” It may simply be:</p>
+<p><strong>“You, young Jedi. It is you.”</strong></p>
+<p><img src="../assets/bc8c6240d60a0b47.png" /></p>
+</main><footer class="blog-footer">© Xianzhe Wang</footer>
+</body>
+</html>

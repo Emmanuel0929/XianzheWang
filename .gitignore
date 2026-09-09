@@ -1,0 +1,14 @@
+.DS_Store
+.Rhistory
+_site/
+__pycache__/
+*.pyc
+
+# Local article exports and redundant archives (not part of the public repository).
+blog/zh/
+blog/clean-source/
+blog/translations/
+blog/clean-source.zip
+blog_translated_current.zip
+docs/*
+!docs/CV_Inter.pdf

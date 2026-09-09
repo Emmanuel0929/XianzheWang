@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>humanoid-robots</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../blog.css" />
+</head>
+<body>
+<header class="blog-header"><a class="blog-brand" href="../../index.html">Xianzhe Wang</a></header><main class="article-shell"><a class="back-link" href="../index.html">← All writing</a>
+<h1
+id="is-2024-the-breakout-year-for-humanoid-robots-looking-at-the-challenges-and-why-the-timing-may-be-right">Is
+2024 the Breakout Year for Humanoid Robots? Looking at the Challenges
+and Why the Timing May Be Right</h1>
+<p><img src="../assets/65b3ff7d9795fc2a.jpg" /></p>
+<p>Just one year ago, when many of us registered for ChatGPT simply to
+try something new and sent our first “Hello” to that six-petaled logo,
+it would have been hard to imagine that only a year later we would
+already be talking seriously about the humanoid robots long depicted in
+science fiction.</p>
+<p><strong>After the frenzy around chatbots and AI agents, the arrival
+of Sora as a so-called “world simulator” has pushed both researchers and
+investors toward the physical embodiment of AI: robots, and especially
+humanoid robots.</strong></p>
+<p>Human evolution gave us a body first and intelligence emerged
+gradually through natural selection. Since 2023, the development of
+large models seems to have reversed that sequence: the “intelligent
+brain” arrived first and is now searching for a body. In the second half
+of 2023, that body was largely “tools”; in 2024, attention is turning
+toward an <strong>intelligent physical body</strong>.</p>
+<p><img src="../assets/bb92fe5fbf6ae64f.png" /></p>
+<p>Leaving aside whether phrases such as “the first year of X” are
+overused, one thing is worth recognizing. Humanoid robots would be
+fundamentally different from chatbots or software agents. <strong>If
+human-shaped machines become widely deployed, the impact would not be
+limited to an “AI industry” or the existing robotics sector. A
+human-like machine with direct productive capacity would be not merely
+an enabling technology but potentially a substitutive technology, with
+consequences for politics, economics, and culture.</strong></p>
+<p>So, could 2024 really be the beginning of the humanoid-robot era? To
+answer that, we first need to understand why humanoid robots are so
+difficult.</p>
+<h2 id="the-crown-jewel-why-are-humanoid-robots-so-hard">The Crown
+Jewel: Why Are Humanoid Robots So Hard?</h2>
+<p>Ask someone with no AI background what artificial intelligence means,
+and a natural answer might be: <strong>making computers behave like
+humans</strong>. Yet after roughly six decades of AI research—from
+rule-based systems, to machine learning, to today's large-model-based
+agents—can we really say that computers now behave like people?</p>
+<p>Clearly, not yet.</p>
+<p>AI has made extraordinary progress: from failing at simple games to
+AlphaGo dominating Go; from recognizing handwritten digits in 28×28
+grayscale images to computer vision systems deployed everywhere in daily
+life; and then to ChatGPT and GPT-4, which some have argued can pass
+versions of the Turing test.</p>
+<p><img src="../assets/109d1cd3f0934bfa.png" /></p>
+<p>But no matter how impressive these algorithms are, they still mainly
+perform computation inside a virtual world constructed by computers. A
+black box is useful only when someone connects it to the outside world.
+<strong>Most AI systems still lack the ability to autonomously and
+directly act on the physical world around us.</strong></p>
+<p>This lack of agency creates a major gap between today's AI and the
+idea of “acting like a human.” How can intelligence escape the purely
+digital world and become physically present? Roboticist Rodney Brooks
+summarized one answer with a famous idea: <strong>“Intelligence requires
+a body.”</strong></p>
+<p><img src="../assets/e3f70b063bb36c43.jpg" /></p>
+<p><em>Geminoid F, a humanoid robot developed by Japanese roboticist
+Hiroshi Ishiguro.</em></p>
+<p>As early as the 1980s, Brooks emphasized <strong>embodiment</strong>
+in robotics. The word itself combines the idea of putting something
+“into a body.” For intelligence, a physical body is both a capability
+and a constraint. It enables an intelligent system to interact with and
+alter the physical world, while its physical boundaries prevent it from
+being nearly omnipresent in the way a cloud-based model can be.</p>
+<p>The idea of placing robots in the real world and letting them acquire
+knowledge through perception, action, and trial and error may sound
+straightforward. Actually doing this as well as humans do is enormously
+difficult. <strong>The human body contains an information-processing
+system refined over an extremely long evolutionary history.</strong>
+When we climb stairs, for example, the nervous system senses forces at
+the feet, estimates balance, and rapidly adjusts muscles throughout the
+body—mostly outside conscious awareness.</p>
+<p>For a robot, transferring this apparently effortless behavior into
+the physical world is extremely complex. There may be only a narrow set
+of ways to execute a task successfully, but countless ways to fail.
+<strong>Even if engineers carefully imitate human anatomy and explicitly
+catalogue possible actions, a top-down reconstruction struggles to
+reproduce the “instincts” that biology acquired through
+evolution.</strong></p>
+<p><img src="../assets/3409923c3f0da78d.png" /></p>
+<p>In other words, one could say that our ancestors encoded a kind of
+<strong>world model</strong> into the body itself. Even a baby, long
+before acquiring language and explicit knowledge, already possesses a
+body capable of performing sophisticated interactions with the real
+world. On top of those embodied experiences, humans gradually build the
+higher-level structures we usually call intelligence: language,
+knowledge, culture, and meaning.</p>
+<p><strong>The fundamental difficulty of humanoid or embodied robots is
+therefore to construct a body refined enough to reproduce some of the
+world model that humans inherit biologically.</strong></p>
+<p>And that road has been long and difficult.</p>
+<h2 id="a-brief-history-of-humanoid-robots-how-far-have-we-come">A Brief
+History of Humanoid Robots: How Far Have We Come?</h2>
+<p>The world's first humanoid robot is often traced to work at Waseda
+University in Japan. In 1969, Professor Ichiro Kato's team developed the
+WL-5 bipedal walking machine, later associated with the WABOT project.
+It used hydraulic actuation and could walk on two legs, but very slowly:
+a step of roughly 15 centimeters could take around 40 seconds.</p>
+<p><img src="../assets/4dc326eb4b1f6afa.png" /></p>
+<p>Honda began developing ASIMO in 1986 and released its first
+generation in 2000. Compared with the early WABOT machines, the
+1.2-meter-tall, astronaut-like <strong>ASIMO could walk upright smoothly
+at about 1.6 km/h.</strong></p>
+<p><img src="../assets/a18280aeef6d9c6e.gif" /></p>
+<p>In 2003, Japan's AIST introduced HRP-1S, which could operate control
+levers inside a construction-machine cab. In the same year, Toyota
+demonstrated its Partner Robots performing tasks such as playing a
+trumpet and violin.</p>
+<p><img src="../assets/e52a52abbf5f95f3.png" /></p>
+<p>By 2005, Honda had upgraded ASIMO from walking to running, reaching
+about 6 km/h.</p>
+<p><img src="../assets/bf49fadb59f68c21.gif" /></p>
+<p>In 2013, Boston Dynamics introduced the first Atlas. At roughly 1.8
+meters tall and 150 kilograms, <strong>Atlas demonstrated much stronger
+dynamic stability than ASIMO and could maintain balance even under
+external disturbances.</strong></p>
+<p><img src="../assets/3ffd53286365bc49.gif" /></p>
+<p>Meanwhile, from 2007 to 2016, ASIMO successively demonstrated
+backward walking, single-leg hopping, running at 9 km/h, kicking a
+soccer ball, using sign language, pouring drinks, and other tasks
+requiring greater coordination and precision.</p>
+<p><img src="../assets/22769fa222559120.gif" /></p>
+<p>After 2017, Atlas also became dramatically more athletic, progressing
+from object handling to jumping, backflips, handstands, and complex
+gymnastics-like movements.</p>
+<p><img src="../assets/54835c07adea1e21.png" /></p>
+<p>In 2021, Elon Musk used Tesla AI Day to propose the commercialization
+of a humanoid robot and said an initial version would appear the
+following year.</p>
+<p><img src="../assets/056d41961187c26a.png" /></p>
+<p>Tesla followed through in 2022 with an early version of Optimus,
+demonstrating simple tasks such as carrying objects and watering
+plants.</p>
+<p><img src="../assets/81206002b5f12632.png" /></p>
+<p>By 2023, Boston Dynamics was showing Atlas walking smoothly,
+cooperating with humans, and completing assigned physical tasks.</p>
+<p><img src="../assets/9138b9c36a31b37e.gif" /></p>
+<p>At the end of 2023, the second-generation Tesla Optimus demonstrated
+joint motion and flexibility impressive enough to make viewers ask
+whether they were watching real video rather than CGI.</p>
+<p><img src="../assets/2d5181b9d1c72834.gif" /></p>
+<p>Yet despite the remarkable advances in flexibility and movement, Musk
+himself noted when launching the first Optimus that existing humanoid
+robots <strong>“lack a brain.”</strong> After the second generation
+appeared, he also acknowledged that Optimus was not yet autonomously
+carrying out tasks such as folding clothes.</p>
+<p><img src="../assets/5f7368ac02d6b39b.jpg" /></p>
+<p><strong>From 1969 to 2023, humanoid robots acquired much better
+bodies: stronger hardware, more capable “muscles,” improved control, and
+more sophisticated sensing. But they still mostly imitate human actions
+rather than truly act as humans do.</strong> Their understanding of the
+world remains largely a rule-based environment constructed by engineers,
+rather than a rich world model built through autonomous exploration and
+self-modeling.</p>
+<h2
+id="from-what-is-it-to-what-can-it-do-are-humanoid-robots-entering-the-present-tense">From
+“What Is It?” to “What Can It Do?”: Are Humanoid Robots Entering the
+Present Tense?</h2>
+<p><strong>In 2024, however, this may begin to change.</strong></p>
+<p>Many media outlets have called 2024 “the year of robotics.” Much of
+that enthusiasm comes not from a single technical breakthrough but from
+the capital market. In December 2023, UBTECH—often described as a
+leading publicly listed humanoid-robot company—went public. In February
+2024, Figure AI raised roughly $675 million from investors including
+Amazon, NVIDIA, Microsoft, and OpenAI. In China, industry statistics
+counted 24 robotics financing events between January 1 and March 20,
+spanning humanoid, surgical, industrial, and other robots.</p>
+<p><img src="../assets/5abbf00454c8bc67.png" /></p>
+<p>Capital often moves before mass deployment. Investors have become
+more optimistic partly because Tesla's rapid iteration suggests that
+large-scale commercialization of humanoid robots—whether for businesses
+or consumers—may become possible. But another important factor is the
+trajectory of large models. After moving from chatbots to agents in
+2023, the industry began looking for a <strong>body that could carry the
+agent into the physical world</strong>.</p>
+<p>At the moment, the magic ingredient people hope will move humanoid
+robots from merely “imitating humans” toward behaving more like them is
+still the <strong>large language model</strong>.</p>
+<p><img src="../assets/f023f6cf3c01357a.png" /></p>
+<p>At NVIDIA GTC on March 19, alongside the GB200 superchip, NVIDIA
+introduced <strong>Project GR00T (Generalist Robot 00
+Technology)</strong>, a foundation model intended for general-purpose
+humanoid robotics. GR00T is designed to learn from broad multimodal
+experience so that robots can learn actions and model the real world.
+Jensen Huang described GR00T-powered robots as systems that can
+understand natural language and learn movements by observing humans.</p>
+<p><img src="../assets/db3071a4888c80c2.png" /></p>
+<p>NVIDIA also introduced the Jetson Thor computing platform as a
+potential “robot brain,” emphasizing high performance and low power
+consumption. Combined with Project GR00T, it sketches an initial
+architecture for the intelligent core of future humanoid robots.</p>
+<p><img src="../assets/7c5746d79dadcfb4.png" /></p>
+<p><strong>But this is still not enough.</strong></p>
+<p>Robotics has a famous observation known as Moravec's paradox:
+<strong>it is relatively easy to make a machine perform at a high level
+in chess, but extremely difficult to give it the perception and motor
+skills of a young child.</strong></p>
+<p><img src="../assets/0378ce202e7f570a.png" /></p>
+<p>Compute plus large models does not guarantee that humanoid robots
+will perfectly model the physical world. Even Sora, which OpenAI has
+described in world-simulator terms, does not prove that its generated
+worlds contain a deep understanding of physical reality rather than an
+extraordinarily convincing approximation. Nor do we yet know whether
+large models can reliably turn autoregressively generated “correct
+answers” into correct physical decisions, much less into the kind of
+fast, almost reflexive capabilities humans acquire through
+embodiment.</p>
+<p><img src="../assets/bf5a7c2680ed1b0a.png" /></p>
+<p>But perhaps we should change the question. Instead of asking
+<strong>“What is artificial intelligence?”</strong>, ask <strong>“What
+can artificial intelligence do for us?”</strong> ChatGPT is not human,
+yet it can already perform many tasks once reserved for people. In the
+same way, throughout 2024 we can reasonably expect the combination of
+<strong>compute + large models + humanoid robots</strong> to begin
+entering human-centered environments. Their generality and naturally
+human-compatible body shape may let them integrate into society in ways
+very different from fixed industrial robot arms.</p>
+<p>We can already see pieces of that possibility: NVIDIA's GR00T
+project; Tesla's experience combining vision-based perception with a
+mature electric-vehicle hardware supply chain; Figure AI demonstrations
+in which robots learn and correct errors while making coffee; and
+Stanford's Mobile ALOHA platform, built at a cost of roughly
+$32,000.</p>
+<p><img src="../assets/248ee63a2bb69fbb.png" /></p>
+<p>So the question “Will 2024 be the first year of humanoid robots?” is
+really two questions. <strong>Will 2024 inaugurate a mature era of world
+models and embodied intelligence, producing robots that truly function
+like humans? Probably not. But will humanoid robots make important
+breakthroughs and begin moving into real life? That is no longer a
+future-tense question—it is already happening.</strong></p>
+</main><footer class="blog-footer">© Xianzhe Wang</footer>
+</body>
+</html>

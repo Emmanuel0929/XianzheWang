@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>sora-china</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../blog.css" />
+</head>
+<body>
+<header class="blog-header"><a class="blog-brand" href="../../index.html">Xianzhe Wang</a></header><main class="article-shell"><a class="back-link" href="../index.html">← All writing</a>
+<h1
+id="chinas-sora-like-video-models-where-they-stand-and-how-large-the-gap-really-is">China’s
+“Sora-Like” Video Models: Where They Stand and How Large the Gap Really
+Is</h1>
+<p><img src="../assets/80cab5a7aeeba0a3.webp" /></p>
+<p>February 16, 2024.</p>
+<p><strong>On the very same day that Google released its next-generation
+multimodal foundation model, Gemini 1.5 Pro, OpenAI once again captured
+the world’s attention with its new text-to-video model,
+Sora.</strong></p>
+<p><img src="../assets/baf7839916c25ffc.png" /></p>
+<p>“Disruptive,” “explosive,” “game-changing,” “crazy”—adjectives like
+these surrounded Sora almost overnight. Unlike ChatGPT, whose uniqueness
+often became apparent only after a long conversation, <strong>Sora
+delivered its shock almost instantly, in a what-you-see-is-what-you-get
+form.</strong></p>
+<p>If we can still intuitively imagine how much new information a
+text-to-text model adds between an input and an output, then the
+transformation from text to video that Sora performs may be better
+described by a single word: creation.</p>
+<p>At the same time, AI entrepreneurs and investors already trained by
+ChatGPT’s success immediately recognized the enormous business
+opportunities hidden behind those four letters meaning “sky.” Amid the
+excitement, many people in China naturally began asking: <strong>With
+Sora now here, what about Chinese AI companies? Do they already have
+Sora-like products? Do they have the necessary technical foundations?
+Can they quickly assemble teams and catch up in text-to-video
+generation?</strong></p>
+<p><img src="../assets/413471134a7cb28a.png" /></p>
+<p>So today, <strong>we are going to conduct an “industry-wide
+inventory” of China’s video-generation models: what they can do today,
+how far they are from Sora, and whether any of them show particularly
+promising strengths.</strong> We cover nine models from ByteDance,
+Tencent, Baidu, Alibaba, and two startups. The overall comparison is
+summarized below.</p>
+<p><img src="../assets/170128274e973fce.png" /></p>
+<p>Before looking at the Chinese models, let us start with Sora
+itself.</p>
+<h2 id="openai-sora">OpenAI: Sora</h2>
+<p>In fact, <strong>much like large language models, text-to-video
+generation was not a field invented by OpenAI. It evolved naturally from
+advances in areas such as text-to-image generation, but with
+substantially greater technical difficulty and complexity.</strong>
+Before Sora, we had already covered a number of video-generation
+systems, including:</p>
+<ul>
+<li><a
+href="https://mp.weixin.qq.com/s?__biz=MzIwNzc2NTk0NQ==&amp;mid=2247570512&amp;idx=3&amp;sn=be45d1f6095a0793eee90546b74d00ca&amp;scene=21#wechat_redirect">Google
+releases a zero-shot video-generation model with impressive
+results</a></li>
+<li><a
+href="https://mp.weixin.qq.com/s?__biz=MzIwNzc2NTk0NQ==&amp;mid=2247573028&amp;idx=2&amp;sn=c5acab5996deccff253bfb176491191a&amp;scene=21#wechat_redirect">ByteDance’s
+new text-to-video model produces smooth dancing foxes and beats
+Gen-2</a></li>
+<li><a
+href="https://mp.weixin.qq.com/s?__biz=MzIwNzc2NTk0NQ==&amp;mid=2247573831&amp;idx=3&amp;sn=92b0377040bbbe3b049043c1e0930b46&amp;scene=21#wechat_redirect">Shanghai
+AI Lab releases Vlogger, generating minute-long videos from a few
+sentences</a></li>
+<li><a
+href="https://mp.weixin.qq.com/s?__biz=MzIwNzc2NTk0NQ==&amp;mid=2247570936&amp;idx=3&amp;sn=ebdafd2e8daf81b402c8f69cff1f13f1&amp;scene=21#wechat_redirect">Pika
+1.0 opens public testing</a></li>
+<li><a
+href="https://mp.weixin.qq.com/s?__biz=MzIwNzc2NTk0NQ==&amp;mid=2247557280&amp;idx=2&amp;sn=c9b5972c432080775a5e27301dfa24ba&amp;scene=21#wechat_redirect">An
+AI-generated TV drama where every character is a large model</a></li>
+<li>And many more.</li>
+</ul>
+<p>Pika, Runway, Gen-2, and others had already established themselves in
+video generation. So why was Sora the one that truly broke into the
+mainstream?</p>
+<p>To answer that, let us quickly review Sora’s technical report, titled
+<em>Video Generation Models as World Simulators</em>. <strong>Right from
+the beginning, OpenAI emphasizes not merely Sora’s video quality, but
+its potential as a “world simulator.”</strong></p>
+<p><img src="../assets/c024514fa9fe174e.png" /></p>
+<p>That distinction matters. <strong>Unlike earlier video-generation
+work, Sora’s ability to generate high-definition, polished video also
+appears to offer a technological route toward AGI through models that
+simulate the real world.</strong> Its videos seem to display a striking
+understanding of the abstract concept of the “physical world.” To quote
+NVIDIA researcher Jim Fan: <strong>“If you still think Sora is just a
+generative toy like DALL·E, think again. It is a data-driven physics
+engine.”</strong></p>
+<p>From an architectural perspective, <strong>many researchers still
+believe that the “world simulator” behavior shown by Sora is very much
+in the OpenAI tradition: an emergent capability produced by
+scaling.</strong> Even the most advanced simulation software has
+enormous difficulty modeling the physical world. In video generation,
+understanding the physical world requires properties such as 3D
+consistency, object permanence, and long-range coherence. How these
+capabilities emerge from the architecture described in Sora’s technical
+report—a VAE encoder, ViT-style processing, conditional diffusion, DiT
+modules, and a VAE decoder—remains something of a mystery.</p>
+<p><img src="../assets/2ea6d86b85321a50.png" /></p>
+<p>Beyond its science-fiction-sounding “world simulator” ambition,
+<strong>Sora’s most obvious and shocking feature as a text-to-video
+foundation model is its ability to generate coherent videos up to 60
+seconds long directly from a text prompt.</strong> Sixty seconds may not
+sound long, but before Sora the average AI-generated clip was only
+around four seconds. For comparison, the average Douyin short video is
+only around 20–30 seconds even though users spend more than 2.5 hours
+per day on the platform. In a commercial film, 60 seconds can contain
+roughly 15 shots; in the hands of a good director, it can be enough to
+tell a complete story.</p>
+<p>Beyond duration, which is easy to quantify, Sora also gives a
+powerful intuitive impression through its exceptional coherence.</p>
+<p><strong>For ordinary viewers rather than reviewers reading benchmark
+tables, a clear and coherent video creates the most immediate visual
+impact.</strong> Sora also pushes realism to a new level. In the example
+below, if CCTV had not explicitly marked the footage as model-generated,
+how many viewers would immediately notice that the eye was
+synthetic?</p>
+<p><img src="../assets/ef7ba77f8aa789e2.gif" /></p>
+<p>In addition to these obvious breakthroughs, Sora also brings stronger
+semantic understanding, support for different aspect ratios and
+resolutions, and impressive video extension capabilities. It is
+therefore not surprising that Sora immediately created a “ChatGPT
+moment” for video generation.</p>
+<p>With Sora as our reference point, let us now step back and take a
+more critical look at the state of Chinese video-generation models
+released over the previous half year.</p>
+<h2 id="bytedance-magicvideo-v2-and-pixeldance">ByteDance: MagicVideo-V2
+and PixelDance</h2>
+<p>Among China’s major technology companies, <strong>ByteDance—whose
+rise was built on short video—has made perhaps the broadest push into
+video generation. In fact, only about a month before Sora appeared,
+ByteDance had released a new text-to-video model called
+MagicVideo-V2.</strong> It integrates four components—text-to-image
+generation, image-to-video generation, video-to-video generation, and
+video-frame interpolation—into one framework, allowing it to generate
+high-definition, smooth, and coherent video.</p>
+<p>In its paper, ByteDance states that the model outperforms mainstream
+systems such as Runway, Pika 1.0, Morph, Moon Valley, and Stable Video
+Diffusion in visual quality, smoothness, coherence, and semantic
+faithfulness.</p>
+<p><img src="../assets/7d6fac00bdbf93f7.png" /></p>
+<p>From the examples on the project site (<a
+href="https://magicvideov2.github.io">https://magicvideov2.github.io</a>),
+<strong>the videos are genuinely impressive in resolution, realism, and
+motion coherence. For example, when asked to generate a polar bear
+playing a guitar, MagicVideo-V2 produces a result with strong image
+quality, good semantic faithfulness, and smooth motion.</strong></p>
+<p><img src="../assets/b9fc359dc72dfb90.gif" /></p>
+<p>▲ A polar bear is playing guitar</p>
+<p>If we instead ask for a more realistic rather than cartoon-like
+scene—for example, a young boy riding a bicycle along a park
+path—<strong>MagicVideo-V2 looks somewhat more stylized and artificial
+than Sora’s almost photorealistic output.</strong> Some local details
+are also still imperfect.</p>
+<p><img src="../assets/c3099a430f70c1c5.gif" /></p>
+<p><strong>Still, the slightly cartoonish feel is not the decisive
+problem. Compared with Sora, what really puts MagicVideo-V2 at a
+disadvantage is video duration.</strong> As the examples show, its clips
+are still around three to four seconds long. We can see that a “picture”
+has been successfully animated, but the result is far from the cinematic
+impact of Sora.</p>
+<p>In addition to MagicVideo-V2, ByteDance released PixelDance in
+November 2023, a tool that generates video from text plus a first-frame
+image and a last-frame image.</p>
+<p><img src="../assets/c7d3b60f3bd02305.png" /></p>
+<p><strong>Unlike pure text-to-video generation, PixelDance takes
+guidance images plus a textual description as input. Although many
+outputs still resemble animated GIFs, their clarity and smoothness can
+be striking. One example shows a bronze sculpture of a couple kissing
+while rotating.</strong></p>
+<p><img src="../assets/ca6c344f838e4294.gif" /></p>
+<p>But the overall visual style can still feel synthetic, and human
+movement can look stiff. One example asks for “a girl slowly turning her
+head, smiling, with her hair moving.”</p>
+<p><img src="../assets/b0aecfff4521b1f8.gif" /></p>
+<p>Interestingly, perhaps because it benefits from image guidance,
+PixelDance’s website (<a
+href="https://makepixelsdance.github.io">https://makepixelsdance.github.io</a>)
+also demonstrated a three-minute short film—longer than Sora’s
+clips.</p>
+<p><strong>Yet the “film” still contains many problems: unnatural
+movements, stiff transitions, sudden character deformations, and more.
+It remains far from being something that could truly disrupt the
+short-video industry.</strong> In fact, when PixelDance appeared in
+November 2023, only three or four months before Sora, a common view in
+the field was that <strong>“generating videos with both high consistency
+and rich dynamics—making video content truly move—is the biggest
+challenge in video generation.”</strong> Comparing that view and those
+“older” models with Sora makes the shock produced by Sora easier to
+understand.</p>
+<p>Beyond MagicVideo-V2 and PixelDance, ByteDance’s CapCut/Jianying has
+also announced that its Dreamina text-to-image tool will add
+text-to-video generation and is currently being tested internally.
+Sora’s momentum has not yet faded, so it will be interesting to see
+whether Dreamina can deliver something beyond MagicVideo-V2.</p>
+<p><img src="../assets/a641a3d5e81b3114.png" /></p>
+<h2 id="tencent-videocrafter2">Tencent: VideoCrafter2</h2>
+<p><strong>Interestingly, only one day after ByteDance released
+MagicVideo-V2, on January 17, China’s large technology companies seemed
+to enter a game of leapfrog: Tencent had VideoCrafter2, while Baidu
+followed with UniVG.</strong> Let us begin with Tencent’s
+VideoCrafter2.</p>
+<p>As its name suggests, VideoCrafter2 is the successor to VideoCrafter,
+which was released around the same time as PixelDance. One example from
+the original VideoCrafter is an “astronaut riding a horse.”</p>
+<p><img src="../assets/8f4a6f2e81003d6f.gif" /></p>
+<p><strong>Its quality was broadly similar to other models from the same
+period. VideoCrafter’s more distinctive contribution was personalized
+generation and controllability: users could fine-tune the model on a
+small set of specific video clips or images in order to transfer styles
+and exert deeper control over the generated result.</strong></p>
+<p><img src="../assets/1523b89c8d3e8bb1.gif" /></p>
+<p>It is worth noting that VideoCrafter uses a U-Net architecture—the
+design that Sora’s Diffusion Transformer (DiT) effectively moved
+beyond—and VideoCrafter2 retains that choice. In fact, VideoCrafter2’s
+main contribution is focused on <strong>how to generate high-quality
+video using low-quality video data together with high-quality image
+data</strong> (<a
+href="https://github.com/AILab-CVC/VideoCrafter">https://github.com/AILab-CVC/VideoCrafter</a>).</p>
+<p><img src="../assets/aafa45aa1fccb254.png" /></p>
+<p>Compared with the original VideoCrafter, VideoCrafter2 makes major
+improvements in clarity and motion. One example shows “a child excitedly
+swinging on a slightly rusty swing.”</p>
+<p><img src="../assets/8081eb2fcadcaff2.gif" /></p>
+<p>Another shows “a young woman wearing glasses and a pink headband
+jogging in a park.”</p>
+<p><img src="../assets/5366ce536506066b.gif" /></p>
+<p><strong>Overall, the videos are impressive in both sharpness and
+smoothness, and the method for producing high-quality video from
+lower-quality data is technically valuable.</strong> Unfortunately,
+after seeing Sora first, it is difficult not to feel that the two
+systems are competing in different dimensions when judged by duration,
+motion quality, character deformation, and other factors.</p>
+<h2 id="baidu-univg">Baidu: UniVG</h2>
+<p>Next is Baidu’s UniVG (<a
+href="https://univg-baidu.github.io">https://univg-baidu.github.io</a>),
+released on the same day as VideoCrafter2. Whereas Tencent focused on
+converting lower-quality training data into higher-quality generation,
+<strong>Baidu positions UniVG around the idea of a “Unified Model”—a
+more flexible video generator that accepts arbitrary combinations of
+text and images as input.</strong></p>
+<p><img src="../assets/4c25a264fbb975e9.png" /></p>
+<p>The generated results are surprisingly clear. One example is “a cat
+eating a carrot.”</p>
+<p><img src="../assets/94cecda59c2515ec.gif" /></p>
+<p>Another shows “a little girl and a fish.”</p>
+<p><img src="../assets/97a0111e02b93ad1.gif" /></p>
+<p><strong>The clarity and realism are quite good overall, but the
+biggest problem may still be that the clips are simply too short. They
+often feel like several images stitched into motion rather than a
+unified story unfolding over time.</strong></p>
+<h2 id="alibaba-i2vgen-xl-and-emo">Alibaba: I2VGen-XL and EMO</h2>
+<p>Alibaba had already released its I2VGen-XL video-generation model on
+ModelScope about five months before Sora appeared (<a
+href="https://i2vgen-xl.github.io">https://i2vgen-xl.github.io</a>).
+Unlike text-to-video generation, I2VGen-XL focuses primarily on
+image-to-video. Like Tencent’s systems, it is based on latent diffusion
+models and uses a U-Net architecture. Alibaba also invested heavily in
+data, collecting roughly 35 million single-shot text-video pairs and six
+billion text-image pairs for training.</p>
+<p><img src="../assets/0ede375f8106c824.png" /></p>
+<p><strong>Judging by its outputs, I2VGen-XL genuinely deserves the
+label “high quality.”</strong> For example, given the following image of
+a cat:</p>
+<p><img src="../assets/7ed6f89dc4a0ae7f.png" /></p>
+<p>I2VGen-XL produces this video:</p>
+<p><img src="../assets/95b3a0f7cb68edd5.gif" /></p>
+<p>Given an image of three wolves:</p>
+<p><img src="../assets/4493e604954ae6f2.png" /></p>
+<p>I2VGen-XL can also make them “run.”</p>
+<p><strong>When I2VGen-XL first appeared it was described by some as a
+milestone. Its motion diversity, faithfulness, and smoothness were among
+the best available at the time. But fundamentally it still mostly made
+images “move,” and it was far from producing the kind of “world
+simulator” effect seen in Sora.</strong></p>
+<p>More recently, Alibaba introduced EMO (Emote Portrait Alive), a
+framework that generates video from an image plus audio. Compared with
+I2VGen-XL, EMO is arguably more playful and immediately engaging.</p>
+<p><img src="../assets/6f0242949ba99c3f.png" /></p>
+<p>As shown above, given a portrait and arbitrary audio, EMO can make
+the Mona Lisa speak or make Audrey Hepburn sing.</p>
+<p>There is even a small connection to Sora: take a synthetic character
+generated by Sora, add audio from an interview with OpenAI CTO Mira
+Murati, and the result can be remarkably convincing.</p>
+<p>Beyond ordinary image-to-video generation, <strong>one of EMO’s most
+impressive capabilities is that it can generate a video matching the
+full duration of the input audio while maintaining the character’s
+identity and visual traits.</strong> The examples also show that EMO
+moves beyond the short “GIF-like” behavior of many earlier systems:
+facial expressions and head poses can remain vivid and stable over
+relatively long sequences. Some observers have even pointed out how
+accurately it reproduces details such as ears, eyebrows, and throat
+motion.</p>
+<p><img src="../assets/9a0598481bae99af.png" /></p>
+<h2 id="startups-hidream-pixverse-and-others">Startups: HiDream,
+PixVerse, and Others</h2>
+<p>Beyond the major technology companies, several Chinese startups are
+also working aggressively on video generation. Representative examples
+include HiDream from HiDream.ai and PixVerse from AIsphere. Both can be
+tried online:</p>
+<blockquote>
+<p>HiDream: <a
+href="https://hidreamai.com/">https://hidreamai.com/</a><br />
+PixVerse: <a
+href="https://app.pixverse.ai/">https://app.pixverse.ai/</a></p>
+</blockquote>
+<p>HiDream allows users to sign in directly with WeChat. After entering
+a text prompt, it can produce a corresponding video within a minute or
+two. We tested it with the same prompt: “a polar bear playing a
+guitar.”</p>
+<p><img src="../assets/ad78c86a07589cdc.png" /></p>
+<p><strong>HiDream generates a clip of roughly four seconds, with fairly
+good clarity and smooth motion.</strong></p>
+<p><img src="../assets/6116bdef9a0a1f68.gif" /></p>
+<p>PixVerse can also generate a video within a few minutes after the
+user enters a prompt and selects a style. <strong>Its
+instruction-following ability, however, appears less reliable. With the
+same prompt—“a polar bear playing a guitar”—choosing a realistic style
+generated a woman playing guitar with no polar bear at all, while
+choosing an animation style generated two polar bears.</strong></p>
+<p><img src="../assets/774aab8401afb556.png" /></p>
+<p>The generated videos also reveal obvious weaknesses in fine
+details.</p>
+<h2 id="after-sora">After Sora</h2>
+<p>Taking a broader view of the comparison between Chinese
+video-generation models and Sora, <strong>many of these models were
+genuinely exciting when they first appeared. Their papers and technical
+reports reported strong benchmark results, and before Sora existed it
+was easy to praise each system for one innovation here and another
+highlight there.</strong></p>
+<p><strong>But once we have seen Sora first and then look back at models
+that are only one, two, or three months older, the gap between them and
+the kind of “real transformation” OpenAI demonstrated becomes difficult
+to ignore.</strong> Historian Eric Hobsbawm described the Industrial
+Revolution by observing that <strong>once industrialization began,
+change itself became normal.</strong> Looking at the AI revolution now
+underway, however, Chinese models too often seem to produce incremental
+refinements within that “normal state of change,” repeatedly missing the
+milestone-level advances that redefine the field.</p>
+<p>China has seen one company after another describe itself—or be
+described by others—as “China’s OpenAI,” alongside claims that China and
+the United States together dominate global AI. Yet much of the strategy
+still feels like “catch-up.” <strong>Just as Sora appeared on the same
+day Google released Gemini 1.5 Pro, if an industry settles into a
+pattern of celebrating incremental change until incrementalism becomes
+long-term mediocrity, we may repeatedly watch the same cycle:
+technologies like ChatGPT and Sora appear, we rush to catch up, external
+pressure follows, and the gap opens again.</strong></p>
+<p>We should recognize that while many of us thought the hardest problem
+in video generation was simply “making the content move,” Sora was
+targeting the deeper idea of a “world simulator.” The gap may therefore
+be about far more than four seconds versus sixty seconds.</p>
+<p><strong>Perhaps Chinese companies can stop merely following when
+innovation is no longer defined by a pre-drawn boundary around an
+application domain, but instead is guided by genuine curiosity about
+“intelligence” itself rather than only “applications of
+intelligence”—curiosity that pushes us to imagine the limits of
+intelligence and explore possibilities that have not yet been mapped.
+Only then might catching up turn into overtaking.</strong></p>
+</main><footer class="blog-footer">© Xianzhe Wang</footer>
+</body>
+</html>

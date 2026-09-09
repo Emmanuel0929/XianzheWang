@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>thought-structures</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../blog.css" />
+</head>
+<body>
+<header class="blog-header"><a class="blog-brand" href="../../index.html">Xianzhe Wang</a></header><main class="article-shell"><a class="back-link" href="../index.html">← All writing</a>
+<h1
+id="deconstructing-chains-trees-and-graphs-of-thought-how-can-we-improve-llm-reasoning">Deconstructing
+Chains, Trees, and Graphs of Thought: How Can We Improve LLM
+Reasoning?</h1>
+<p><img src="../assets/4099ad028a7c3e87.jpg" /></p>
+<p><strong>Across the long history of biological evolution, our
+ancestors were “lucky” enough to draw a ticket called
+intelligence.</strong> Intelligence gave humans the ability to think,
+and much of what thinking does can be summarized by one word:
+reasoning.</p>
+<p><img src="../assets/c3d9e4aa110370e7.jpg" /></p>
+<p><strong>The rise of large models has moved artificial constructions
+of intelligence from the “perception” capabilities associated with
+convolutional and recurrent neural networks toward “cognition.” Among
+cognitive capabilities, reasoning may be one of the most important
+abilities large models have demonstrated.</strong> A few months ago,
+Professor Zhuosheng Zhang at Shanghai Jiao Tong University published a
+survey tracing the development from Chain-of-Thought (CoT) techniques to
+AI Agents.</p>
+<p>At a high level, <strong>LLM reasoning can be viewed as constructing
+a set of reasoning nodes and the dependency relationships between them
+while solving a problem, producing a structured graph that supports the
+reasoning process.</strong> We can call this a <strong>Topology of
+Reasoning</strong>. The topology may be a chain (CoT), a tree (ToT), or
+a more general graph (GoT).</p>
+<p><img src="../assets/ff63f4147a6801da.png" /></p>
+<p>As large models have developed, combining prompt engineering with
+structured reasoning topologies has shown enormous potential for
+improving reasoning performance and solving complex tasks. <strong>To
+deepen our understanding of this promising area, researchers from ETH
+Zurich provide a detailed discussion of the concepts, taxonomy, and
+importance of reasoning topologies, unpacking the essence of chains,
+trees, and graphs of thought and offering a broad survey of LLM
+reasoning.</strong></p>
+<p><strong>Paper:</strong><br />
+<em>Topologies of Reasoning: Demystifying Chains, Trees, and Graphs of
+Thoughts</em></p>
+<h2 id="what-is-a-reasoning-topology-and-what-is-a-prompt">What Is a
+Reasoning Topology? And What Is a Prompt?</h2>
+<p>From Chat to reasoning, the development of large models has moved
+from direct question-answer interaction toward using intermediate steps
+to guide the model toward a final solution. Familiar examples include
+Chain of Thought (CoT), Tree of Thoughts (ToT), Graph of Thoughts (GoT),
+and many Agent systems such as AutoGPT, ReAct, and LLMCompiler.</p>
+<p><strong>If we put these works on a timeline, the evolution looks
+something like the figure below. Instead of a direct Input-to-Output
+mapping, increasingly complex graphical structures emerge between the
+two—these structures are what the paper calls reasoning
+topologies.</strong></p>
+<p><img src="../assets/a22fac100ef6161d.png" /></p>
+<p>In the simplest Chat mode, a model receives a user prompt and
+produces an answer in a black-box manner without exposing any explicit
+reasoning structure. Building on this basic mode, <strong>in January
+2022 Jason Wei and collaborators introduced Chain-of-Thought prompting,
+inserting segmented linear reasoning nodes between input and output and
+linking them into a chain.</strong></p>
+<p>Shortly afterward, Self-Consistency CoT (CoT-SC) extended the idea by
+generating multiple reasoning chains and using a majority answer as the
+final output. Topologically, this converts one chain into several
+parallel chains.</p>
+<p>By <strong>May 2023</strong>, work led by Princeton introduced
+<strong>Tree of Thoughts (ToT)</strong>, while another paper from Theta
+Labs explored LLM-guided tree-of-thought reasoning. Building on parallel
+chains, <strong>ToT introduced a tree structure that broke the
+independence among chains and gave the model the ability to search among
+alternative reasoning paths.</strong></p>
+<p>Then in August came <strong>Graph of Thoughts (GoT)</strong>, a
+natural extension from trees to more general graphs. A graph allows
+arbitrary dependencies among reasoning nodes, so a node can have
+multiple parents and children. Multiple nodes can be aggregated into
+subgraphs that solve subproblems, and those subgraphs can then be
+combined into a complete solution.</p>
+<p>The evolution can therefore be summarized into three broad topology
+families:</p>
+<ul>
+<li><strong>Chain topology (Chain of Thought).</strong> Each reasoning
+step is connected linearly. This is well suited to problems that can be
+solved through a sequence of ordered steps.</li>
+<li><strong>Tree topology (Tree of Thoughts).</strong> A reasoning step
+may branch into multiple alternatives, allowing exploration of different
+solution paths. This is useful for complex problems involving choices
+and search.</li>
+<li><strong>Graph topology (Graph of Thoughts).</strong> Dependencies
+can be formed between arbitrary nodes. This is the most flexible
+structure and is suitable for tasks that require dynamic planning,
+aggregation, and coordination among multiple subproblems.</li>
+</ul>
+<p>Reasoning topologies are directly connected to the prompting process.
+But what does a complete prompt pipeline look like?</p>
+<p><img src="../assets/fdf140fe0c5f1307.png" /></p>
+<p>A prompt is the primary communication channel between humans and
+large models. From input prompt to model reply, the process can roughly
+be divided into the following steps.</p>
+<p>First, the human prompt is <strong>preprocessed (1)</strong>.
+System-level prompts and metadata may be added, safety or policy checks
+may be performed, and the prompt may be expanded or restructured
+according to platform rules. In a multi-turn conversation, the processed
+prompt is then combined with the model’s <strong>context (2)</strong>,
+including historical prompts and replies.</p>
+<p>The processed prompt and context are sent into the model
+<strong>(3)</strong>, which generates output autoregressively
+<strong>(4)</strong>. Depending on the application, the raw output may
+then pass through post-processing <strong>(5)</strong> and be stored in
+contextual memory <strong>(6)</strong>. It may be sent back into the
+model for another iteration <strong>(7)</strong> or returned directly to
+the user <strong>(8)</strong>.</p>
+<p><strong>Together, this full prompt pipeline forms the basic
+infrastructure through which humans interact with large models, whether
+in Chat mode or Agent mode.</strong></p>
+<h2 id="the-essence-of-reasoning-topologies">The Essence of Reasoning
+Topologies</h2>
+<p><strong>Whether we talk about chains, trees, or graphs of thought,
+the word “thought” sits at the center. But what exactly is a
+thought?</strong></p>
+<p>In CoT, a “thought” may be a sentence or short passage containing one
+part of the reasoning process. In ToT, it may be an intermediate
+candidate solution to the original problem. In GoT, it may represent a
+subtask produced by decomposing the original task.</p>
+<p><img src="../assets/77293a52aeff0476.png" /></p>
+<p>Based on these different uses, the paper gives a formal definition:
+<strong>a thought is the basic semantic unit in a task-solving
+process.</strong> One step can be a statement, a plan, a paragraph, a
+set of documents, or even a sequence of numbers.</p>
+<p>The authors represent thoughts as <strong>nodes</strong>, while the
+dependencies among thoughts are represented as <strong>edges</strong>. A
+reasoning topology is therefore a graph <code>G = (V, E)</code>, where
+<code>V</code> is the set of thought nodes and <code>E</code> is the set
+of dependency edges. If the objective is to solve a task as quickly as
+possible, one possible topology-design objective is to minimize the
+distance between the input node and the output node.</p>
+<p>Thought nodes may be heterogeneous, producing a heterogeneous graph.
+Existing work has already explored graph-learning methods over
+heterogeneous structures as a way to improve model reasoning.</p>
+<p><img src="../assets/311fa2b8b8ecd57a.png" /></p>
+<p>At a high level, <strong>reasoning topologies can be divided into two
+types: solution topologies and exemplar topologies.</strong></p>
+<p>A <strong>solution topology</strong> connects the input task
+description to the final solution. Starting at the input node, one can
+trace a path through reasoning nodes to the output. An <strong>exemplar
+topology</strong>, by contrast, appears in in-context demonstrations. It
+is not directly part of the final input-output solution path; it acts as
+an example that shows the model how reasoning should be organized.</p>
+<p>As illustrated above, solution topologies often extend across
+multiple prompts, while exemplar topologies are more likely to be
+contained inside a single prompt. Representing them differently may help
+reduce token consumption.</p>
+<p>The paper describes a complete reasoning structure through four
+dimensions: <strong>topology class, topology scope, topology
+representation, and topology derivation.</strong></p>
+<ul>
+<li><strong>Topology class</strong> describes how nodes and edges are
+connected: chain, tree, or graph.</li>
+<li><strong>Topology scope</strong> describes how much of the
+prompt/reply/context is covered by the topology. It can be a
+single-prompt topology or a multi-prompt topology.</li>
+<li><strong>Topology representation</strong> describes how the topology
+is expressed in prompts, replies, or context—implicitly or
+explicitly.</li>
+<li><strong>Topology derivation</strong> describes how the topology is
+obtained—manually, semi-automatically, or automatically.</li>
+</ul>
+<p><img src="../assets/bd007f3166d84a3d.png" /></p>
+<p>Once a topology is defined, the model reasons over it. The topology
+acts as a skeleton, while a <strong>reasoning plan</strong> specifies
+how it should be explored—for example, depth-first search or
+breadth-first search. More advanced scheduling strategies can also be
+used.</p>
+<p>The representation of that plan—how the model is told to follow
+it—can be direct textual instruction or in-context examples. Finally,
+the full prompting pipeline may incorporate external tools in addition
+to prompts alone.</p>
+<h2 id="different-types-of-reasoning-topology-methods">Different Types
+of Reasoning-Topology Methods</h2>
+<p>The framework above provides a useful taxonomy for understanding
+chains, trees, and graphs of thought.</p>
+<p><img src="../assets/55927dbf0921774f.png" /></p>
+<p>The authors organize existing LLM reasoning work into a unified
+system. Starting with the foundational Chain-of-Thought method,
+<strong>CoT uses an implicitly represented topology within a single
+prompt and uses in-context topological examples as its reasoning
+representation.</strong></p>
+<p>Many extensions build on CoT. Program of Thoughts (PoT) uses code to
+improve reliability. Plan-and-Solve prompting divides a complex task
+into subtasks and executes them step by step in a zero-shot manner.
+Chain of Symbols (CoS) uses compressed symbolic representations to fit
+more information into context and then performs CoT-style reasoning over
+those symbols.</p>
+<p>For tree topologies, the paper further distinguishes several forms,
+including k-ary trees, chain trees, one-level trees, and binary
+trees.</p>
+<p><img src="../assets/34a40685a461adc4.png" /></p>
+<p><strong>Compared with chain topologies, the core feature of tree
+topologies is exploration and sampling across alternative
+task-decomposition paths, followed by selecting stronger paths through
+scoring or voting.</strong></p>
+<p>A representative chain-tree method is CoT-SC, which improves
+reliability by sampling multiple reasoning chains. A one-level tree
+appears in <strong>Skeleton of Thought</strong>, which uses
+divide-and-conquer reasoning to generate a solution skeleton. K-ary
+trees are the most common general form and have inspired many search
+strategies, including random beam search, uncertainty-based scoring,
+hybrid trees, and others.</p>
+<p>The paper also distinguishes multiple graph-topology structures.</p>
+<p><img src="../assets/8499777273876cf6.png" /></p>
+<p><strong>The key difference between graph and tree topologies is the
+introduction of aggregation. Graphs can coordinate and combine multiple
+subgraphs, strengthening reasoning through collaboration among different
+partial solutions.</strong></p>
+<p>Graph of Thoughts (GoT), for example, uses a multi-prompt method to
+improve problem-solving. It decomposes a task into a graph of
+subtasks—an operation graph—and coordinates prompting and reasoning over
+that graph.</p>
+<p><img src="../assets/c4c86922af689156.png" /></p>
+<p>Across CoT, ToT, and GoT, the paper identifies both similarities and
+important differences.</p>
+<p><strong>Chain topologies guide the model linearly, encouraging clear,
+traceable “step-by-step” reasoning. Tree structures introduce the
+possibility of exploring several next-step solutions at each branch,
+allowing the model to search among potential reasoning paths. Graph
+structures provide the most general framework, allowing arbitrary
+reasoning steps to be aggregated into a unified solution and enabling
+nonlinear problem solving.</strong></p>
+<p>From a cost perspective, chains are usually faster and more
+efficient. Trees and graphs consume more computation and time. From a
+quality perspective, however, trees and graphs can outperform simple
+chains because they add exploration, branching, aggregation, and
+nonlocal transitions—capabilities that may be necessary for genuinely
+complex problems.</p>
+<p><strong>Combining the strengths of different reasoning topologies, a
+strong LLM reasoning architecture can be divided into four components: a
+generator, an evaluator, a halter, and a controller.</strong></p>
+<p>The <strong>generator</strong> brainstorms new ideas as thought
+nodes. The <strong>evaluator</strong> scores those nodes and estimates
+their quality. The <strong>halter</strong> determines whether the
+exploration is sufficient and whether the current solution satisfies the
+task. The <strong>controller</strong> acts like a project manager,
+coordinating the overall reasoning process.</p>
+<h2 id="future-directions-and-conclusion">Future Directions and
+Conclusion</h2>
+<p>Leaving large models aside for a moment, <strong>human reasoning is
+often divided into four broad types: deduction, induction, analogy, and
+abduction.</strong> Deduction moves from abstract knowledge to
+conclusions while preserving logical validity. Induction moves from
+specific observations to general conclusions, compressing information
+into patterns. Analogy resembles a form of transfer learning, using
+known knowledge to make judgments in unfamiliar domains. Abduction links
+observations back to plausible causes and constructs explanations.</p>
+<p>If we use these human reasoning abilities as a mirror, we can ask how
+far reasoning topologies have moved large models toward human-like
+reasoning.</p>
+<p><strong>Problem solving fundamentally means using known
+information—the problem description in the prompt, task requirements,
+and methods from similar problems—to derive unknown information, namely
+the answer. A reasoning topology effectively provides a thinking
+template. A Chain of Thought encourages a model to list what it knows,
+read the prompt carefully, analogize from examples, induce an
+organizational pattern, and then deduce the final answer.</strong></p>
+<p><strong>Tree of Thoughts adds “possibility” by allowing trial and
+error across branches. Graph of Thoughts generalizes further, building
+bridges among different subproblems and potentially enabling the kind of
+abductive leap that feels like sudden insight.</strong></p>
+<p>Seen this way, reasoning topologies resemble the neural pathways that
+connect ideas in the human brain. They provide routes through which
+different parts of logical reasoning can be linked.</p>
+<p>An interesting feature of this survey is that it itself mirrors the
+four types of human reasoning: it inductively summarizes research on
+chains, trees, and graphs; abstracts the common idea of a “reasoning
+topology”; and then deductively uses that abstraction to organize a wide
+range of LLM reasoning methods.</p>
+<p>The survey concludes with several promising future directions:</p>
+<ol type="1">
+<li><strong>Explore new topology classes.</strong> Beyond chains, trees,
+and graphs, structures such as cliques, dense subgraphs, hypergraphs,
+and hyperedges may produce interesting reasoning behavior.</li>
+<li><strong>Improve explicit single-prompt representations.</strong> How
+a reasoning plan is explicitly represented—for example, as an adjacency
+matrix—may significantly affect reasoning efficiency.</li>
+<li><strong>Automatically derive tree or graph topology.</strong>
+Automatically determining the structure of a reasoning graph could
+enable more efficient reasoning.</li>
+<li><strong>Develop stronger single-prompt methods.</strong> Trees and
+graphs can improve quality, but faster chain-like methods may remain
+more broadly useful in practice.</li>
+<li><strong>Design better scheduling algorithms.</strong> Breadth-first
+and depth-first search are not always optimal. Better reasoning
+schedulers may improve efficiency.</li>
+<li><strong>Find better graph structures.</strong> There may be graph
+topologies that are significantly more efficient than those currently
+used.</li>
+<li><strong>Integrate graph algorithms with graph reasoning.</strong>
+Combining classical graph algorithms with graph-based LLM reasoning may
+improve both representation and scheduling.</li>
+<li><strong>Multimodal reasoning.</strong> Connect reasoning topologies
+with multimodal foundation models and explore how to reason over mixed
+text, image, audio, and other inputs.</li>
+<li><strong>Retrieval augmentation inside prompts.</strong> External
+databases and knowledge bases can expand the scope and depth of model
+reasoning.</li>
+<li><strong>Parallelization.</strong> Parallel prompting can improve
+reasoning efficiency and remains underexplored.</li>
+<li><strong>Integration with complex systems.</strong> Incorporating
+structured data from complex systems into reasoning remains an important
+challenge.</li>
+<li><strong>Hardware acceleration.</strong> Improvements in the hardware
+supporting inference may fundamentally reshape the design space for
+reasoning systems.</li>
+</ol>
+</main><footer class="blog-footer">© Xianzhe Wang</footer>
+</body>
+</html>

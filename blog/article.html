@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Article · Xianzhe Wang</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="blog.css">
+  <link rel="icon" href="../images/logo.jpg">
+</head>
+<body class="article-page">
+  <header class="blog-header"><a class="blog-brand" href="../index.html">Xianzhe Wang</a><nav aria-label="Primary navigation"><a href="index.html">Writing</a><a href="../index.html">Home</a></nav></header>
+  <main class="article-shell" id="article" aria-live="polite"></main>
+  <footer class="blog-footer">© Xianzhe Wang</footer>
+  <script src="posts.js"></script>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const post = POSTS.find(item => item.id === params.get('id')) || POSTS[0];
+    const lang = params.get('lang') === 'zh' ? 'zh' : 'en';
+    const chineseEdition = `zh/${post.id}.html`;
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    document.title = `${lang === 'zh' ? post.titleZh : post.titleEn} · Xianzhe Wang`;
+    const other = lang === 'zh' ? 'en' : 'zh';
+    const title = lang === 'zh' ? post.titleZh : post.titleEn;
+    document.getElementById('article').innerHTML = `
+      <a class="back-link" href="index.html">← All writing</a>
+      <p class="eyebrow">${post.year} · ${post.topic}</p>
+      <h1>${title}</h1>
+      <div class="language-switch" aria-label="Language edition"><a ${lang === 'zh' ? 'aria-current="page"' : ''} href="${chineseEdition}">中文原文</a><a ${lang === 'en' ? 'aria-current="page"' : ''} href="article.html?id=${post.id}&lang=en">English</a></div>
+      <img class="article-cover" src="${post.cover}" alt="${post.alt}">
+      <div class="article-provenance"><p>${lang === 'zh' ? '中文首发于晓瑶科技。' : 'Originally published in Chinese by Xiaoyao Technology.'}</p><a href="${post.source}" target="_blank" rel="noopener">${lang === 'zh' ? '查看原始发布页 ↗' : 'View original Chinese publication ↗'}</a></div>
+      <section class="article-body"><h2>${lang === 'zh' ? '文章迁入中' : 'Article migration in progress'}</h2><p>${lang === 'zh' ? '该页面的站内排版、配图和双语切换已就绪。请提供原文导出稿或可下载文稿，以便完整迁入并制作经你确认的英文译文。' : 'The bilingual layout, cover image, and language switch are ready. The original export is needed to faithfully import the complete article and prepare a reviewed English translation.'}</p></section>
+      <p class="article-navigation"><a href="${lang === 'zh' ? `article.html?id=${post.id}&lang=en` : chineseEdition}">${lang === 'zh' ? 'Read this article in English →' : '阅读中文原文 →'}</a></p>`;
+  </script>
+</body>
+</html>

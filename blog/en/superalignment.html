@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>superalignment</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../blog.css" />
+</head>
+<body>
+<header class="blog-header"><a class="blog-brand" href="../../index.html">Xianzhe Wang</a></header><main class="article-shell"><a class="back-link" href="../index.html">← All writing</a>
+<h1
+id="openais-superalignment-team-publishes-its-first-paper-ilya-leads-research-on-using-gpt-2-to-supervise-gpt-4">OpenAI's
+Superalignment Team Publishes Its First Paper: Ilya Leads Research on
+Using GPT-2 to Supervise GPT-4</h1>
+<p><img src="../assets/610b50114a7a72fd.png" /></p>
+<p>OpenAI has made another major move.</p>
+<p><strong>The Superalignment team led by OpenAI Chief Scientist Ilya
+Sutskever has published its first paper. It introduces the idea of
+“weak-to-strong generalization” and studies how a small model such as
+GPT-2 can supervise a much stronger model such as GPT-4, offering a
+possible route toward controlling future superintelligent AI
+systems.</strong></p>
+<p><img src="../assets/c687b0e5b72a451b.png" /></p>
+<p>Back in July, OpenAI argued that <strong>AI systems more intelligent
+than humans could emerge within the next ten years</strong>. If such
+systems really appear, an urgent question follows: <strong>how can
+superintelligent AI be aligned with human interests?</strong></p>
+<p>Unlike present-day alignment approaches such as RLHF, the biggest
+challenge of “superalignment” is that it is fundamentally a problem
+about the future. We know such systems may eventually exist, but today
+we know very little about what they would actually be like.</p>
+<p><img src="../assets/6953c8d62d538062.png" /></p>
+<p>To tackle this puzzle, OpenAI formed its Superalignment team in July
+under the leadership of Ilya Sutskever. The company said it would
+dedicate <strong>20% of OpenAI's compute</strong> and bring together
+researchers and engineers from its alignment efforts, with the goal of
+solving key problems of aligning and controlling superintelligent AI
+within four years.</p>
+<p><img src="../assets/b4196b513cb8af2d.png" /></p>
+<p>Now the Superalignment team has announced its first paper,
+<strong>“Weak-to-Strong Generalization: Eliciting Strong Capabilities
+With Weak Supervision.”</strong> Sam Altman also promoted the work on X,
+calling it “Great Work.”</p>
+<p><img src="../assets/4b8cdf8b7dd5d0c1.png" /></p>
+<p>Rather than first trying to define exactly what “superintelligent AI”
+is, the team takes a different route. It does not directly test whether
+humans can adequately supervise a superintelligence. Instead, it asks a
+more tractable question: <strong>can a weaker AI system successfully
+supervise a stronger AI system?</strong></p>
+<p>One figure in the paper makes the idea especially intuitive. In
+conventional machine learning, a capable human supervisor trains or
+aligns a weaker AI. But if AI eventually surpasses human capabilities,
+humans may no longer be able to reliably evaluate, guide, or control it.
+The paper therefore studies the setup shown on the right side of the
+figure: <strong>using a weak AI to supervise a strong AI</strong>. In
+principle, this could provide a building block for automated supervision
+of systems that exceed human capabilities.</p>
+<p><img src="../assets/ad7af1139b0cbeef.png" /></p>
+<p>The Superalignment team studies three classes of tasks: a collection
+of representative NLP tasks, chess, and reward-modeling tasks used in
+RLHF. The experimental setup has three main steps:</p>
+<ol type="1">
+<li><strong>Create a weak supervisor.</strong> Fine-tune a small model
+such as GPT-2 on ground-truth labels. Its resulting performance is
+called <strong>weak performance</strong>.</li>
+<li><strong>Train a strong student.</strong> Use labels predicted by the
+weak supervisor to fine-tune a much larger model such as GPT-4. The
+resulting performance is called <strong>weak-to-strong
+performance</strong>.</li>
+<li><strong>Train a strong reference model.</strong> Fine-tune the large
+model directly on ground-truth labels. This serves as an upper reference
+and is called <strong>strong ceiling performance</strong>.</li>
+</ol>
+<p>The experiments reveal an interesting pattern: <strong>the strong
+student trained on weak labels almost always outperforms the weak
+supervisor itself</strong>. Even when the weak supervisor makes mistakes
+on some examples, the stronger student can sometimes identify and
+correct those errors, achieving higher accuracy.</p>
+<p><img src="../assets/6983be8c295a047a.png" /></p>
+<p>This phenomenon motivates what the team calls <strong>weak-to-strong
+generalization</strong>. The setup resembles the familiar distinction
+among training error, generalization error, and approximation error in
+traditional learning theory. Here, the important quantities are the weak
+supervisor's performance, the strong student's weak-to-strong
+performance, and the strong model's ceiling performance.</p>
+<p>In principle, the strong ceiling should be higher than weak-to-strong
+performance, which in turn should be higher than weak performance. The
+weak-to-strong generalization problem asks how to improve the strong
+student so that its performance moves closer to the strong ceiling. To
+quantify this, the paper defines <strong>Performance Gap Recovered
+(PGR)</strong>.</p>
+<p><img src="../assets/14018655f2a02e7d.png" /></p>
+<p>The authors then conduct extensive experiments across student-model
+scales. <strong>For almost every student size, the strong student
+performs better than its weak supervisor, giving a positive PGR. The
+effect is particularly strong on NLP tasks.</strong> When GPT-2
+supervises GPT-4, more than 20% of the performance gap associated with
+scaling can be recovered, and for full GPT-4 the PGR exceeds 50%.</p>
+<p>The scaling effect is much weaker in chess, however, where PGR can
+even decrease as student-model size grows. On reward-modeling tasks,
+weak-to-strong generalization is weaker still: <strong>the student
+recovers less than 10% of the gap between the weak supervisor and the
+strong reference model.</strong></p>
+<p><img src="../assets/d3df173951599ae7.png" /></p>
+<p>The team argues that weak weak-to-strong generalization is not
+necessarily a dead end. It tests two methods for improving it:
+<strong>bootstrapping</strong> and an <strong>auxiliary confidence
+loss</strong>.</p>
+<p>Bootstrapping is conceptually straightforward. Arrange models of
+increasing scale into a sequence. First train the smallest model with
+ground-truth supervision, then use that model to supervise the next
+larger one, use the second to supervise the third, and continue step by
+step. <strong>On chess tasks, bootstrapping substantially improves the
+strong student's performance.</strong></p>
+<p><img src="../assets/e04a48298c3c88b2.png" /></p>
+<p>Drawing on earlier semi-supervised learning research, the authors
+also want the strong student to <strong>“understand what the weak
+supervisor intends, without simply imitating its mistakes.”</strong>
+They therefore add a regularization term inspired by conditional-entropy
+minimization. When the student believes the weak label is wrong, this
+auxiliary loss encourages the model to place greater confidence in its
+own prediction.</p>
+<p><img src="../assets/6557132fb3d33320.png" /></p>
+<p>This method substantially improves weak-to-strong generalization on
+the NLP datasets.</p>
+<p><img src="../assets/afe573c8e7c2146d.png" /></p>
+<p>In this setting, the auxiliary confidence loss can be understood as a
+form of regularization against overfitting. Here, “overfitting” means
+that the student copies the weak supervisor's mistakes so closely that
+its performance on the true labels deteriorates. The authors study this
+behavior carefully by measuring how strongly the student imitates errors
+made by the weak supervisor.</p>
+<p><img src="../assets/39e060f3557648e6.png" /></p>
+<p>They find that both bootstrapping, which can also be interpreted as a
+regularization strategy, and the auxiliary confidence loss reduce this
+form of overfitting.</p>
+<p><img src="../assets/4572138182409b27.png" /></p>
+<p>Beyond simple imitation, the authors investigate another possible
+explanation for weak-to-strong generalization: <strong>weak labels may
+activate task-relevant concepts that the strong model already learned
+during pretraining.</strong> They compare fine-tuning with zero-shot and
+5-shot prompting. Although zero-shot and 5-shot performance remains
+below fine-tuning, 5-shot prompting alone already produces reasonably
+good solutions. This suggests that the student already possesses
+substantial task knowledge and that weak supervision can help bring that
+knowledge to the surface.</p>
+<p><img src="../assets/6db728d7df24cada.png" /></p>
+<p>Consistent with this interpretation, strengthening the student's
+understanding of task-relevant concepts improves the results when GPT-2
+supervises GPT-4.</p>
+<p><img src="../assets/9cf7e3a448c20849.png" /></p>
+<p>Although this paper is a promising first step toward using weak
+supervisors to automatically supervise stronger models, it still falls
+far short of the Superalignment team's ultimate goal of controlling
+superintelligent AI.</p>
+<p>For example, today's weak supervisors may make very different kinds
+of errors from those a future superintelligent system would make. GPT-4
+is also a pretrained language model, so some of the observed effect may
+depend on capabilities acquired during pretraining, which may help
+explain why the method performs better on NLP tasks. It remains unclear
+whether the same mechanism would apply to future superintelligent
+systems. One could even worry that a powerful model's tendency to ignore
+incorrect instructions and “trust its own judgment” might itself become
+dangerous.</p>
+<p>That interpretation is probably premature, however. The small model's
+errors in these experiments generally arise because the task is too
+difficult for it, not because the strong model is being asked to disobey
+a capable human supervisor. As some commenters noted, the experiments
+are nevertheless notable because <strong>they challenge the usual
+assumption that model output quality is tightly bounded by the quality
+of the supervision it receives.</strong></p>
+<p><img src="../assets/4a68026aaa062b27.jpg" /></p>
+<p>The idea of weak-to-strong generalization is worth following, and the
+paper itself contains many more details than can be covered here. OpenAI
+has also announced <strong>$10 million in grants</strong> for research
+on superalignment.</p>
+<h2 id="references">References</h2>
+<ol type="1">
+<li><a
+href="https://twitter.com/OpenAI/status/1735349718765715913">https://twitter.com/OpenAI/status/1735349718765715913</a></li>
+<li><a
+href="https://twitter.com/sama/status/1735361953688895499">https://twitter.com/sama/status/1735361953688895499</a></li>
+<li><a
+href="https://cdn.openai.com/papers/weak-to-strong-generalization.pdf">https://cdn.openai.com/papers/weak-to-strong-generalization.pdf</a></li>
+</ol>
+</main><footer class="blog-footer">© Xianzhe Wang</footer>
+</body>
+</html>

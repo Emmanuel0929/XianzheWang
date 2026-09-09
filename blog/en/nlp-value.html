@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>nlp-value</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../blog.css" />
+</head>
+<body>
+<header class="blog-header"><a class="blog-brand" href="../../index.html">Xianzhe Wang</a></header><main class="article-shell"><a class="back-link" href="../index.html">← All writing</a>
+<h1 id="which-nlp-subfield-has-the-greatest-social-value">Which NLP
+Subfield Has the Greatest Social Value?</h1>
+<p><img src="../assets/c2f6487d9f7447f4.png" /></p>
+<p>Imagine a scenario: your boss suddenly comes into a large sum of
+money and <strong>hands you five million yuan to conduct research in
+natural language processing. Which NLP subfield should you prioritize
+first?</strong></p>
+<p><img src="../assets/89c71e28cdef61c5.png" /></p>
+<p>Machine translation sounds useful. Information extraction is clearly
+important. Dialogue systems are one of the most visible ways NLP reaches
+real users. But deciding which NLP tasks are “most important” is an
+extremely open-ended problem. Commercial value gives us one ranking
+system; scientific contribution gives us another. <strong>If we step
+back and ask as members of society rather than only as researchers or
+engineers, evaluating the social benefit of NLP tasks becomes a
+particularly meaningful question.</strong></p>
+<p>A paper accepted to <strong>ACL Findings</strong> proposes an entire
+framework for evaluating NLP research from the perspective of social
+impact. <strong>It introduces criteria for assessing the social value of
+NLP tasks and discusses which topics should receive higher research
+priority if our goal is to maximize social benefit.</strong></p>
+<p><img src="../assets/cd50cd083c6210a3.png" /></p>
+<p><strong>Paper:</strong><br />
+<em>How Good Is NLP? A Sober Look at NLP Tasks through the Lens of
+Social Impact</em></p>
+<p><strong>Link:</strong><br />
+<a
+href="https://arxiv.org/pdf/2106.02359.pdf">https://arxiv.org/pdf/2106.02359.pdf</a></p>
+<h2 id="what-makes-an-nlp-technology-good">What Makes an NLP Technology
+“Good”?</h2>
+<p>NLP has undeniably entered almost every part of our lives. We all
+recognize familiar NLP applications: a joke someone makes about Siri, a
+paragraph pasted into Google Translate, a chatbot that answers
+questions, and so on. <strong>Once NLP is no longer a concept shared
+only by a small group of specialists and becomes part of daily life, its
+social consequences naturally move to center stage.</strong></p>
+<p>Nobody wants a bedside conversational assistant to produce dangerous
+advice such as telling someone to stab their heart. Nor do people want
+an apparently neutral language system to reproduce racist or sexist
+content.</p>
+<p><img src="../assets/33f4d126b20a1715.png" /></p>
+<p>Research in AI ethics therefore examines issues such as algorithmic
+discrimination, fairness, transparency, and justice. These discussions
+are hardly new; in one form or another, ethical questions have
+accompanied AI since the field began. <strong>At its core, ethics
+attempts to establish principles for moral judgment: to clarify the
+boundaries of acceptable action, to search for common ground across
+cultures and regions, and to define what counts as good and bad in
+particular situations.</strong></p>
+<p>AI ethics therefore asks a fundamental question: <strong>What is a
+good AI system?</strong> The paper translates that question into a
+research-allocation problem:</p>
+<blockquote>
+<p><strong>Given a researcher or research group with a particular set of
+skills and a set of NLP technologies they could study, which technology
+is most worth researching if the goal is to produce greater social
+benefit?</strong></p>
+</blockquote>
+<p>The difficulty can be broken into three questions:</p>
+<ol type="1">
+<li><strong>How should “good social impact” be defined?</strong></li>
+<li><strong>How do different NLP technologies affect social
+impact?</strong></li>
+<li><strong>How should research priorities be determined?</strong></li>
+</ol>
+<p>The paper addresses these questions in stages. <strong>First, it
+draws on classical ethical theories to provide a qualitative way to
+assess beneficial social impact.</strong> Next, it classifies NLP
+technologies using a causal structural model and <strong>uses the
+resulting hierarchy to discuss how different types of NLP technology
+affect society.</strong> It then borrows a framework from the field of
+<strong>Global Priorities</strong> research to <strong>propose useful
+indicators for deciding research priority.</strong> Finally, by
+analyzing 570 papers from ACL 2020, the authors propose <strong>a way to
+think about research significance through the lens of social benefit and
+identify NLP topics that may deserve greater priority.</strong></p>
+<h2 id="what-counts-as-good-social-impact">What Counts as Good Social
+Impact?</h2>
+<p>Every March, the United Nations Sustainable Development Solutions
+Network publishes the <em>World Happiness Report</em>, using measures
+such as economic conditions, life expectancy, generosity, social
+support, freedom, and perceptions of corruption to compare well-being
+across countries.</p>
+<p><img src="../assets/284dc769a2d3d0b8.png" /></p>
+<p><strong>But can economic conditions, life expectancy, and similar
+indicators really define happiness?</strong> There will always be
+disagreement.</p>
+<p>The same problem appears when we try to define positive social
+impact. If we say that reducing energy consumption is socially
+beneficial, someone living through a −20°C winter may reasonably
+complain that conserving fuel leaves them without enough heat.</p>
+<p><strong>Philosophically, different assumptions can help us navigate
+these conflicts.</strong> One simple approach is intuition: eliminating
+poverty intuitively appears socially beneficial. But intuition alone is
+not rigorous enough to support a general evaluation framework.
+<strong>The paper therefore draws on three major ethical traditions:
+deontology, consequentialism, and virtue ethics.</strong></p>
+<p><img src="../assets/5d9418099804c468.png" /></p>
+<p>To understand their differences, consider the familiar
+<strong>trolley problem</strong>.</p>
+<p><strong>A deontologist emphasizes the authority of moral
+rules.</strong> Actions must be justified by principles. In the trolley
+problem, pulling the lever directly contributes to one person’s death,
+and “do not intentionally harm an innocent person” may be treated as an
+inviolable rule. A strict deontologist might therefore refuse to pull
+the lever.</p>
+<p><strong>A consequentialist</strong>, often associated with
+utilitarianism, instead argues that <strong>we should choose the action
+that produces the greatest overall good.</strong> A consequentialist
+would therefore tend to pull the lever and save more people, even if
+doing so invites criticism from a deontological perspective.</p>
+<p>Finally, <strong>virtue ethics focuses less on rules or aggregate
+outcomes and more on the character of a good person.</strong> It asks
+what a morally admirable person would do, abstracting virtues from
+exemplary individuals and using those virtues to guide behavior. A
+virtue ethicist may ultimately make the same choice as a deontologist in
+the trolley problem, but for different reasons.</p>
+<p>These three theories give us three different lenses for evaluating
+social benefit. We cannot definitively prove which theory is “correct.”
+<strong>This places us in a state of what philosophers call moral
+uncertainty.</strong> Scholars such as William MacAskill argue that even
+under moral uncertainty, we can still make limited comparisons—for
+example, favoring actions endorsed by all major ethical frameworks and
+rejecting actions condemned by all of them.</p>
+<p>This gives us a practical evaluation tool. <strong>Rather than
+producing a precise numerical ranking of social impact, it offers a set
+of perspectives from which to examine the consequences of an NLP
+technology</strong>, somewhat like a radar chart or a SMART analysis. If
+an NLP application in healthcare is considered morally desirable under
+all three theories because it helps treat illness and save lives, we
+have strong reason to regard it as socially beneficial. Where the
+theories conflict, we should make the tradeoff explicit.</p>
+<p><img src="../assets/ccad20e0d5c02681.png" /></p>
+<p>Using this approach together with expert opinions from ethicists,
+<strong>the authors identify several NLP research areas with clear
+potential for positive social impact, including fraud and misinformation
+detection, interpretability, low-resource learning, and
+robustness.</strong></p>
+<h2 id="how-do-different-nlp-technologies-affect-society">How Do
+Different NLP Technologies Affect Society?</h2>
+<p>Different NLP tasks clearly influence society in very different ways.
+We can reasonably say that <strong>an Alexa-like assistant that produces
+racist language can have a negative social impact, but it is much harder
+to say whether a speech-recognition component or a particular pretrained
+representation inside that assistant is socially “good” or
+“bad.”</strong></p>
+<p>To make this distinction clearer, the paper divides NLP technologies
+into four stages connected by a causal structure.</p>
+<p><img src="../assets/8d5ac2392af8bf07.png" /></p>
+<p><strong>Stage 1: Fundamental theory.</strong> These are theories that
+shape the foundations of the field. In NLP, linguistic theory remains a
+major example, despite the famous joke, “Every time I fire a linguist,
+the performance of the speech recognizer goes up.”</p>
+<p><strong>Stage 2: Modular tools.</strong> These are components used
+inside downstream systems, such as tokenization, sequence labeling, and
+information extraction.</p>
+<p><strong>Stage 3: Application research.</strong> These are research
+areas that resemble prototypes of end-user applications, including
+machine translation, question answering, and dialogue systems.</p>
+<p><strong>Stage 4: Commercial products.</strong> These are mature
+systems that can be deployed directly, such as Google Translate or
+consumer smart speakers.</p>
+<p>The authors classify ACL 2020 papers using these four stages and
+count the most popular topics in each. By paper volume, the ordering is
+roughly <strong>Stage 2 &gt; Stage 3 &gt; Stage 4 &gt; Stage 1</strong>,
+which provides a snapshot of where NLP research effort was
+concentrated.</p>
+<p><img src="../assets/908c7780c6b19a4e.png" /></p>
+<p><strong>This classification gives NLP technology a hierarchy. Based
+on causal relationships between layers, the four stages can be
+represented as a tree.</strong></p>
+<p><img src="../assets/366ca73713168b32.png" /></p>
+<p>The authors argue that <strong>there is a causal dependency among NLP
+technologies: technologies lower in the tree become possible only after
+the technologies above them have been developed.</strong> Google
+Translate depends on mature machine-translation methods; machine
+translation in turn depends on more basic techniques such as
+representations and other linguistic tools.</p>
+<p><strong>If we can estimate the social impact of Stage-4 products, we
+can propagate those effects backward through the causal graph to
+estimate the indirect social impact of upstream technologies.</strong>
+The paper models the total social impact of a technology by considering
+the different dimensions in which it affects society—privacy, free time,
+education, and so on—together with the scale of deployment and the
+direction and magnitude of the effect.</p>
+<p>For more fundamental technologies, <strong>the paper treats their
+social impact as the aggregated impact of their downstream
+descendants</strong>, weighted by factors such as the probability that a
+child technology is successfully developed and the contribution of the
+upstream technology to that descendant.</p>
+<p>This framework leads to two useful observations:</p>
+<ol type="1">
+<li><strong>Because their effects accumulate across many descendants,
+Stage-1 and Stage-2 technologies tend to have increasingly positive
+total impact as they enable more socially beneficial downstream
+technologies.</strong></li>
+<li><strong>The greatest uncertainty about whether an impact is good or
+bad is concentrated at Stage 4, which means developers of deployed
+products should pay the closest attention to social
+consequences.</strong></li>
+</ol>
+<h2 id="how-should-research-priorities-be-determined">How Should
+Research Priorities Be Determined?</h2>
+<p>We now have a framework for thinking about the social effects of
+different NLP technologies. The next question is choice: <strong>among
+the enormous variety of NLP technologies and theories, how should we
+decide what deserves research priority?</strong></p>
+<p><img src="../assets/5baac8cbbfd7dcdb.png" /></p>
+<p>This brings us back to the imaginary five million yuan from the
+beginning. How should that money be spent meaningfully? This is closely
+related to the field of <strong>Global Priorities</strong> research.
+Roughly hundreds of billions of dollars are spent worldwide every year
+on public welfare, yet charities and foundations must still decide:
+among hunger, poverty, violence, discrimination, disease, and countless
+other problems, what should be addressed first?</p>
+<p>Researchers in global priorities often use a framework known as
+<strong>INT: Important, Neglected, Tractable</strong>. For a set of
+candidate problems, we ask:</p>
+<ol type="1">
+<li><strong>Is the problem important?</strong></li>
+<li><strong>Has the problem already received substantial
+attention?</strong></li>
+<li><strong>Is the problem realistically tractable?</strong></li>
+</ol>
+<p><strong>A problem deserves higher priority when it is more important,
+more solvable, and more neglected.</strong> The paper adapts this
+framework, using mathematical and economic language, to evaluate NLP
+research priorities.</p>
+<p>First is <strong>importance</strong>. The authors consider the
+expected social impact of a technology, combining its potential impact
+with the probability that the researcher can successfully advance it.
+<strong>Success probability matters because a technology may promise
+enormous social benefits in theory but have little practical value if it
+is extremely unlikely to succeed.</strong></p>
+<p>Second are <strong>neglectedness and tractability</strong>. The
+authors borrow the economic idea of <strong>marginal benefit</strong>.
+The question is: how much additional social value can a researcher
+create by investing one more unit of effort in this technology?</p>
+<p><strong>If a research area is already saturated, blindly adding more
+researchers, time, and resources may produce little marginal
+gain.</strong> Conversely, if a highly important field has long been
+neglected, a small amount of additional research may create unusually
+large benefits. <strong>This partly explains why researchers are often
+attracted to opening entirely new research directions.</strong></p>
+<p>Finally, the authors introduce <strong>opportunity cost</strong> to
+describe the cost of choosing one technology over another. If I devote
+my time to “green NLP,” I am simultaneously giving up the opportunity to
+work on dialogue systems, machine translation, or another field.</p>
+<p><strong>The point is that doing something “good” is not necessarily
+enough; we should sometimes ask whether we could do something even
+better, because a merely good choice can carry a very high opportunity
+cost.</strong></p>
+<h2 id="which-areas-deserve-more-attention">Which Areas Deserve More
+Attention?</h2>
+<p>The paper uses <strong>ACL 2020</strong> as its main empirical case.
+The authors first classify the conference papers according to the
+four-stage framework and then compare countries.</p>
+<p><img src="../assets/66445a1d538bda27.png" /></p>
+<p><strong>The United States and China are clearly the top two countries
+by publication count.</strong> China records essentially no Stage-1
+papers in this classification. Because Stage 1 is heavily focused on
+fundamental linguistic theory, <strong>one possible explanation is that
+Chinese work on language theory is simply less likely to be published in
+English at ACL.</strong></p>
+<p>After classification, the authors manually annotate the 570 ACL 2020
+papers using the social-impact framework. They identify 89 papers as
+having particularly positive social value and group them into areas such
+as <strong>bias reduction, education, equality, fraud and misinformation
+prevention, environmental sustainability, healthcare, interpretability,
+legal applications, low-resource learning, mental health, and
+robustness.</strong></p>
+<p><img src="../assets/1abe4e465c3d9dfe.png" /></p>
+<p><strong>Most of these papers focus on interpretability,
+misinformation reduction, and healthcare.</strong> Researchers in the
+United States publish substantial work on interpretability, while
+Chinese researchers appear less represented in that category. U.S.
+researchers devote less attention to education and legal applications,
+while Indian researchers devote relatively little attention to
+misinformation reduction.</p>
+<p><strong>Judging from ACL 2020, NLP research does not appear to have
+delivered a particularly satisfying answer to the enormous challenge of
+improving social welfare. Education, for example, is a major UN
+Sustainable Development Goal, yet NLP research at the conference touched
+it relatively rarely.</strong></p>
+<p>One reason may be that NLP researchers are not usually funded by
+organizations whose primary mission is public welfare. <strong>More
+fundamentally, the typical career path in NLP rarely includes a stage
+where someone hands us five million yuan and forces us to carefully
+compare what should be studied first and what should be studied
+later—much less a formal framework for comparing the social impact and
+priority of different research areas.</strong></p>
+<p>What should we do instead? The authors suggest asking five questions
+before beginning a research project:</p>
+<ol type="1">
+<li><strong>Who will benefit from this technology?</strong></li>
+<li><strong>Which disadvantaged or vulnerable groups could it
+help?</strong></li>
+<li><strong>Could it contribute to one or more UN Sustainable
+Development Goals?</strong></li>
+<li><strong>Could it improve people’s quality of life?</strong></li>
+<li><strong>What problems might it create?</strong></li>
+</ol>
+<p>Consider machine translation. <strong>It benefits speakers of other
+languages (Q1)</strong> and <strong>can help reduce the gap between
+second-language users and native speakers (Q2).</strong> It directly
+improves the sharing of information and knowledge, supporting areas such
+as quality education, decent work, and global partnerships
+<strong>(Q3)</strong>. It can improve people’s social participation and
+quality of life <strong>(Q4)</strong>. At the same time, it might widen
+gaps between people who can afford advanced smart devices and those who
+cannot <strong>(Q5)</strong>. Overall, the balance can still be strongly
+socially beneficial.</p>
+<p>Based on this self-check framework, the authors identify NLP research
+themes with promising social value and propose directions for each.
+Examples include <strong>using NLP to support education for students
+with disabilities, generating assistive speech for people with
+communication impairments, and conducting cross-cultural research on
+climate-change understanding.</strong></p>
+<p><img src="../assets/6107fc59a6354bd8.png" /></p>
+<h2 id="conclusion">Conclusion</h2>
+<p>This paper is a useful early attempt to qualitatively analyze the
+social value of NLP technologies. As the authors emphasize,
+<strong>their goal is not to produce a final, definitive answer to the
+social impact of NLP. Rather, at a moment when NLP is moving from
+research laboratories into everyday life, they are trying to take a
+small step toward a more complete understanding of its social
+meaning.</strong></p>
+<p><strong>As NLP research and industrial applications mature, we need a
+clear and high-level understanding of what these technologies mean for
+society.</strong> Research should not be driven only by which topic is
+easiest to publish or which technique is easiest to implement. We should
+also recognize, at the level of motivation, what genuine “research
+significance” means. Just as moving from school to industry often
+teaches us to understand the commercial meaning of a technology,
+research itself should involve learning to understand the technology’s
+current and potential social meaning.</p>
+<p>Computer science is an archetypal applied discipline. In stereotype,
+programmers and computer scientists are rarely associated with grand
+ideals about building a better society; the field is often reduced to
+learning skills that “make money.” Law students can imagine pursuing
+justice because law is supposed to serve society. Medical students can
+appeal to the ideal of healing and saving lives.</p>
+<p><strong>Thinking seriously about the social benefits of NLP can add a
+little transcendent meaning and motivation to ordinary code. It gives us
+a way to bring an “I have a dream” kind of idealism into both the
+mundane and the brilliant parts of working in this field.</strong></p>
+</main><footer class="blog-footer">© Xianzhe Wang</footer>
+</body>
+</html>

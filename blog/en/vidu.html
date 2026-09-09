@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>vidu</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../blog.css" />
+</head>
+<body>
+<header class="blog-header"><a class="blog-brand" href="../../index.html">Xianzhe Wang</a></header><main class="article-shell"><a class="back-link" href="../index.html">← All writing</a>
+<h1
+id="tsinghua-team-launches-vidu-chinas-first-sora-level-video-model-a-look-at-the-architecture-behind-it">Tsinghua
+Team Launches Vidu, China’s First Sora-Level Video Model: A Look at the
+Architecture Behind It</h1>
+<p><img src="../assets/7fb75b7c32e7f59e.png" /></p>
+<p>Just two days ago, <strong>Vidu made its debut at the 2024
+Zhongguancun Forum.</strong></p>
+<p><img src="../assets/f6027f9f2b72febd.png" /></p>
+<p>Headlines quickly described it as “China’s first,” a “Sora-level
+video model,” and a system capable of “simulating the real physical
+world.” Vidu immediately became a shot of confidence for China’s
+video-generation industry.</p>
+<p>Vidu currently supports videos up to 16 seconds, still short of
+Sora’s 60 seconds. But judging from Vidu’s demonstration videos,
+<strong>when compared directly with Sora, Vidu already appears highly
+competitive in temporal-spatial consistency, adherence to physical
+rules, multi-shot generation, and related capabilities.</strong></p>
+<h2
+id="backed-by-a-tsinghua-team-u-vit-combined-diffusion-and-transformers-before-soras-dit">Backed
+by a Tsinghua Team: U-ViT Combined Diffusion and Transformers Before
+Sora’s DiT</h2>
+<p>Leaving video quality aside, there is something even more interesting
+about Vidu.</p>
+<p><strong>The U-ViT architecture behind Vidu follows essentially the
+same core idea as Sora’s Diffusion Transformer (DiT)—combining diffusion
+models with Transformers—and U-ViT was published earlier.</strong></p>
+<p>ShengShu Technology, the “Tsinghua team” behind Vidu, was founded in
+March 2023. But members of its founding team had already released the
+U-ViT unified network architecture based on Transformers in September
+2022.</p>
+<p>Sora’s core Diffusion Transformer architecture, DiT, was published in
+December 2022.</p>
+<p>At the architectural level, the two works follow a very similar
+experimental route: both combine a Transformer backbone with a diffusion
+model.</p>
+<p><img src="../assets/56c2091edabeb334.png" /></p>
+<p>Paper:<br />
+<a
+href="https://arxiv.org/pdf/2209.12152">https://arxiv.org/pdf/2209.12152</a></p>
+<p>Professor Jun Zhu, deputy dean of Tsinghua University’s Institute for
+Artificial Intelligence and chief scientist at ShengShu Technology,
+commented after Sora’s release: <strong>“Sora shows that the United
+States has a lead in multimodal foundation models, but China is not
+starting entirely from zero.”</strong></p>
+<p>Soon after Sora appeared, we reviewed the state of China’s
+“Sora-like” models. <strong>At that time, although several major Chinese
+companies and startups had already experimented with text-to-video
+generation, most systems were still mainly trying to “make an image
+move.”</strong> Improvements tended to focus on sharper images and
+higher resolution rather than on the kind of “world simulator” framing
+that made Sora so striking.</p>
+<p><img src="../assets/6a737b47f7ac0dbf.png" /></p>
+<p>In the three months after Sora’s release, Vidu became one of the few
+models worldwide described as reaching Sora-like capability. Looking
+back to the beginning of the Transformer-plus-diffusion idea, it becomes
+clear that Vidu and Sora had been traveling along similar technical
+paths from the start.</p>
+<p><strong>In March 2023, targeting the image-generation capabilities of
+Stable Diffusion, ShengShu open-sourced UniDiffuser, described as the
+first multimodal diffusion foundation model built on the U-ViT
+framework.</strong> Its parameter count expanded from an initial 1B
+model to 3B, 7B, 10B, and beyond. Its scale in both model parameters and
+training data was designed to validate the scalability of U-ViT against
+systems such as Stable Diffusion.</p>
+<p>Starting from the classic CNN-based U-Net used in diffusion models,
+<strong>U-ViT, like Sora’s DiT, replaces the CNN-centered backbone with
+a Transformer-based network.</strong></p>
+<p>Since Song Yang’s 2019 work on understanding generative models from a
+score-based perspective helped popularize U-Net-style architectures in
+this area, influential diffusion models such as DDPM, ADM, and Imagen
+have all used U-Net-like networks to model noise. A conventional U-Net
+looks roughly like this:</p>
+<p><img src="../assets/1a700958f6cbb54f.png" /></p>
+<p>As Vision Transformers (ViT) became increasingly successful across
+visual tasks, <strong>a natural question emerged: does a diffusion model
+really have to use a CNN-based architecture? U-ViT and DiT quickly
+answered: clearly not—and Transformers may work even
+better.</strong></p>
+<p>To test that intuition, U-ViT introduced a ViT-based architecture.
+<strong>Following the ViT idea, U-ViT splits a noisy image into patches
+and combines those patches with information such as the diffusion
+timestep and conditioning variables, treating them all as tokens
+processed by Transformer blocks.</strong></p>
+<p><img src="../assets/8ea882db43a3fde8.png" /></p>
+<p><strong>In addition to transferring the ViT pattern into diffusion
+models, U-ViT also borrows from U-Net by introducing long skip
+connections between shallow and deep layers.</strong></p>
+<p>The intuition is that diffusion denoising depends heavily on
+low-level visual features such as edges, corners, and colors. Long skip
+connections carry these low-level features from early layers directly
+into deeper layers, improving noise prediction and ultimately
+strengthening image generation.</p>
+<p><img src="../assets/52d48d7c31f121dd.png" /></p>
+<p>The core idea behind DiT is very similar: introduce a ViT-style
+Transformer into the diffusion process and combine components such as a
+VAE encoder, ViT/Transformer blocks, DDPM-style diffusion, and a VAE
+decoder.</p>
+<p><img src="../assets/917cf3d74aa56e20.png" /></p>
+<h2 id="u-vit-dit-and-the-2023-conference-story">U-ViT, DiT, and the
+2023 Conference Story</h2>
+<p>An interesting episode in this history is the conference-review
+process. <strong>DiT was initially submitted to CVPR 2023, but because
+U-ViT had already presented a closely related idea, DiT was reportedly
+criticized for insufficient novelty before later appearing at ICCV
+2023.</strong></p>
+<p><img src="../assets/9d30eb5217eeffb8.png" /></p>
+<p>At that time, both U-ViT and DiT were still focused on image
+generation rather than video. <strong>But in March 2023, Professor Jun
+Zhu’s team took another step toward multimodality with UniDiffuser,
+built on U-ViT.</strong> UniDiffuser supports not only text-to-image
+generation but also image-to-text, joint image-text generation,
+image-text editing, and other combinations. In that sense, its
+multimodal direction foreshadowed the later appearance of Vidu.</p>
+<p><img src="../assets/382a57c8b6ac81ab.png" /></p>
+<p>After Vidu’s release, Professor Zhu wrote: “Vidu, we do, we did, we
+do together! Thanks to the team for their day-and-night persistence,
+allowing the architecture developed in the lab to finally bear
+fruit.”</p>
+<p>Unlike companies following a straightforward “copy and catch up”
+strategy, Vidu appears to have grown out of its own accumulation of
+machine-learning theory, multimodal foundation-model research, and
+large-scale training experience. That foundation may be exactly what
+allowed the team to make rapid progress on several of the key technical
+challenges highlighted by Sora.</p>
+<p>And Vidu differs from Sora in another interesting way: its lineage
+begins with a <strong>multimodal diffusion model</strong> rather than
+video generation alone. Video may therefore be only one outward form of
+the system’s broader capabilities.</p>
+<p><strong>From that perspective, what Vidu may eventually promise is
+something more ambitious than simply becoming “China’s
+Sora.”</strong></p>
+</main><footer class="blog-footer">© Xianzhe Wang</footer>
+</body>
+</html>

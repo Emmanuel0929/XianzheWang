@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>paper-without-code</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../blog.css" />
+</head>
+<body>
+<header class="blog-header"><a class="blog-brand" href="../../index.html">Xianzhe Wang</a></header><main class="article-shell"><a class="back-link" href="../index.html">← All writing</a>
+<h1
+id="paper-without-code-a-website-for-reporting-papers-that-cannot-be-reproducedand-publicly-shaming-the-first-author">Paper
+Without Code: A Website for Reporting Papers That Cannot Be
+Reproduced—and Publicly Shaming the First Author?</h1>
+<p><img src="../assets/3a4c601b7e682092.png" /></p>
+<p>The number of papers in machine learning has been growing at a rate
+that is almost visible to the naked eye. As papers pour in like
+snowflakes, concerns about paper inflation, reproducibility, and the
+real significance of research have entered the spotlight as well.
+<strong>Research always builds on previous work: we look for something
+“new” and extend an existing theory, method, or technology into places
+no one has explored. But as the publication cycle gets faster and
+novelty becomes more aggressively pursued, it is increasingly reasonable
+to ask whether some of the foundations we stand on are stable
+enough.</strong></p>
+<p>Two years ago, a Reddit user named
+<strong>ContributionSecure14</strong> posted the following:</p>
+<p><img src="../assets/55051fee38f063e5.png" /></p>
+<p>The user described spending a week trying to reproduce a paper and
+failing to obtain the claimed results. A web search revealed that other
+people had reported the same problem. That experience prompted a
+thought: <strong>if there were a public list of papers that people had
+been unable to reproduce, could it save other researchers a great deal
+of time and effort?</strong> From this idea came a somewhat unusual
+website called <strong>Paper Without Code</strong>.</p>
+<p><img src="../assets/4692b6e6b6b12563.png" /></p>
+<p>The website is extremely simple. One of its main functions is a form
+through which users can submit papers they have attempted but failed to
+reproduce.</p>
+<p><img src="../assets/fb1201d05748f8f2.png" /></p>
+<p>After receiving a submission, Paper Without Code <strong>emails the
+first author of the allegedly unreproducible paper</strong> and gives
+the author a chance to respond. The response window is one week. If that
+week passes without a satisfactory resolution, the paper can be added to
+the public list.</p>
+<p><img src="../assets/91631c67bbdae4cb.png" /></p>
+<p>The submission form asks the person reporting the problem to provide
+<strong>a link to the paper, the reason it could not be reproduced, a
+link to the reproduction code, and the amount of time spent attempting
+reproduction</strong>. The public table also records when the email was
+sent, whether the author responded, and what the response said. Quite a
+few authors apparently did see the emails and subsequently provided
+code.</p>
+<p><img src="../assets/25702903ea2cde7f.png" /></p>
+<p>Some authors responded carefully and seriously.</p>
+<p><img src="../assets/624388ae7b8c930b.png" /></p>
+<p>Others were much less pleased and directly described the approach as
+<strong>offensive</strong>.</p>
+<p><img src="../assets/5e728442632ad52e.png" /></p>
+<p>In absolute terms, participation in this effort to put unreproducible
+work on a kind of academic “pillory” was limited. At the time, only 24
+papers had made the list. <strong>The more interesting part of the
+social experiment was the much broader discussion it triggered on
+Reddit.</strong></p>
+<p><img src="../assets/2bd253aaa6213853.png" /></p>
+<p>As the creator, ContributionSecure14, explained, the website was
+built to publish papers that people reported as unreproducible.
+Interestingly, the creator called the listed papers
+<strong>“BurnedPapers.”</strong> ContributionSecure14 admitted not
+knowing whether this was “the best idea” or “the worst idea,” but said
+the motivation was to encourage a healthier machine-learning research
+culture.</p>
+<p>Supporters of the project have a straightforward argument:
+<strong>publishing research should be treated seriously, and researchers
+should remain responsible for what they publish rather than considering
+the job finished once the paper appears.</strong> Community scrutiny—and
+even the risk of public embarrassment—might also discourage low-quality
+paper production.</p>
+<p><img src="../assets/2f1df78e61950b10.png" /></p>
+<p>Surprisingly, however, many people criticized the mechanism. A common
+objection was that <strong>a shame-list of “unreproducible papers” is
+not necessarily a well-designed solution to the reproducibility
+problem</strong>. For one thing, a failed reproduction attempt does not
+reveal whether <strong>the original paper is wrong or the reproducer
+simply lacks the required skill, resources, or details</strong>. Indeed,
+the website's table showed that a substantial share of complainants did
+not provide their own reproduction-code repositories.</p>
+<p><img src="../assets/700622b8de075db1.png" /></p>
+<p>Others noted that a paper may be unable to release code or data for
+legitimate reasons. The data could involve privacy or politically
+sensitive material; a system architecture could involve commercial
+constraints that prevent disclosure of a production model. <strong>The
+value of a paper is not automatically determined by whether its code and
+data are public.</strong> At the same time, whether undisclosed data or
+architectural details undermine the scientific value of the work is
+itself something peer review should consider.</p>
+<p><img src="../assets/81df20433d0184d1.png" /></p>
+<p>There is also a workload problem. <strong>A norm of “publish code or
+be publicly shamed” can impose additional obligations on
+researchers.</strong> The ethical boundary is not obvious: should a
+researcher be required—not merely encouraged—to ensure that readers can
+understand not only the paper, but also every implementation detail and
+practical design choice, some of which may be considered common
+knowledge within the field?</p>
+<p><img src="../assets/45145d70bf4ca2d3.png" /></p>
+<p>Many commenters thought <strong>the basic idea was good but the
+implementation too crude</strong>. Automatically labeling a paper a
+“BurnedPaper” after one week without a response felt to them more like
+populist punishment than careful scientific evaluation. Borrowing a
+conservative political intuition, some argued that the reproducibility
+system should be improved incrementally. Instead of maintaining a
+blacklist, a site could record <strong>what reproduction was attempted,
+exactly where it failed, and why the reproducer could not
+proceed</strong>. Such a design could at least help diagnose problems on
+the reproducer's side.</p>
+<p><img src="../assets/b5412d92d9392cb8.png" /></p>
+<p>Another alternative is a curated list of <strong>successfully
+reproducible papers</strong>, together with code and implementation
+details—an idea that has already been implemented in various forms.</p>
+<p><img src="../assets/b9905b0bae9022f9.png" /></p>
+<p>Amid the criticism, some commenters defended the spirit of the
+project. They argued that critics saw the “mob” side of public scrutiny
+but underestimated the damage that bad work can inflict on science. If
+unreproducible papers are like memory leaks—resources occupied by
+information no longer useful—then human attention is finite. <strong>The
+research community may genuinely need a kind of garbage-collection
+mechanism that frees attention from work that should no longer be relied
+on.</strong></p>
+<p><img src="../assets/7c400547250d7714.png" /></p>
+<p>As the debate continued, the central question gradually shifted. It
+was no longer simply whether this one experimental website was right or
+wrong, but <strong>how scientific publishing should be monitored more
+generally</strong>.</p>
+<p>We know reproducibility matters. We also know that paper inflation,
+fabricated experiments, and deliberate withholding of crucial
+information can cause real harm. The challenge is therefore: <strong>how
+can we make sure the research we cite and build upon rests on a solid
+foundation, while avoiding indiscriminate attacks that impose
+unnecessary costs or reputational damage on authors?</strong></p>
+<p>One commenter had suggested that reviewers should explicitly assess
+whether undisclosed data meaningfully affects a paper's scientific
+value. Another immediately objected that <strong>if peer review alone
+were sufficient, the strategy would already have succeeded</strong>.
+They cited discussions of psychology's reproducibility crisis as
+evidence that peer review by itself may not rescue a research culture in
+which weak data are used to support strong theories, and emphasized that
+<strong>science should be decentralized</strong>.</p>
+<p><img src="../assets/9a01659316490856.png" /></p>
+<p><strong>Article:</strong> <em>What has happened down here is the
+winds have changed</em><br />
+<strong>Link:</strong> <a
+href="https://statmodeling.stat.columbia.edu/2016/09/21/what-has-happened-down-here-is-the-winds-have-changed/">https://statmodeling.stat.columbia.edu/2016/09/21/what-has-happened-down-here-is-the-winds-have-changed/</a></p>
+<p>The ensuing argument was particularly revealing. It resembled the
+perennial political question of <strong>reform versus
+revolution</strong>, transplanted into a field that appears unrelated to
+politics. The commenter who had been challenged insisted that behind the
+abstract word “science” are real <strong>scientists</strong>. Anonymous
+judgments from random people on the internet, even when motivated by
+good intentions, can give those people the power to destroy a young
+researcher's career over what may be a minor mistake. <strong>The safer
+approach, in this view, is for a sufficiently professional institution
+or qualified peers operating under professional norms to carefully
+determine whether a paper is actually wrong.</strong> In many cases, an
+unreproduced result does not imply total fraud or invalidity; the
+conclusions may only need to be weakened or additional assumptions
+stated.</p>
+<p><img src="../assets/24338b2606fdce5f.png" /></p>
+<p>The opposing view was equally sharp: <strong>warnings about “mob
+rule” can become a standard argument for centralized
+gatekeeping.</strong> Rather than focusing only on the hypothetical
+young researcher whose career might be damaged by criticism, perhaps we
+should pay more attention to researchers whose careers are already being
+damaged by being flooded with unreliable work.</p>
+<p><img src="../assets/1b5cf91085f8587f.png" /></p>
+<p>At this point the argument reaches an impasse. Should the system
+improve reproducibility <strong>top down</strong>, for example by
+introducing standardized labels such as <em>reproducible / difficult to
+reproduce / unreproducible</em> so researchers can judge which work to
+trust? Or should science encourage <strong>bottom-up community
+oversight</strong>, with sites like Paper Without Code creating
+reputational pressure that discourages careless or fraudulent
+research?</p>
+<p>To answer that, it is useful to return to the root question: why do
+unreproducible papers exist in the first place?</p>
+<p>AI's “reproducibility crisis” had already become a topic of
+discussion years earlier, following similar concerns in biology and
+psychology. If research aims to increase human knowledge, then knowledge
+naturally seeks some degree of generality, and <strong>repeatable
+experiments are one important route toward generalizable
+knowledge</strong>.</p>
+<p>Some barriers to reproduction are simply technical and economic. Many
+AI papers from large technology companies require computational
+resources that ordinary researchers cannot afford. <strong>Independent
+researchers may have no realistic budget to repeat the
+experiments</strong>, while wealthy organizations can in practice escape
+some forms of external scrutiny because only they possess the necessary
+resources.</p>
+<p>A second issue may be deeper and resembles problems seen in
+experimental psychology. <strong>AI is still a relatively weak-theory
+discipline compared with fields such as physics.</strong> In physics,
+experiments are often guided by a more explicit theoretical structure;
+in AI, the absence of a complete and rigorous theory means empirical
+exploration can be much more open-ended. This theoretical weakness can
+give researchers greater interpretive freedom: a conclusion that holds
+only under a particular combination of settings may be presented as
+general; results caused by data leakage may be generalized; benchmark
+accuracy may be mistaken for real-world accuracy. All of this can
+contribute to apparent results that others cannot reproduce.</p>
+<p><img src="../assets/9c449be84f04477e.png" /></p>
+<p>From this perspective, Paper Without Code has clear limits.
+<strong>It cannot solve the reproducibility problem for experiments that
+are too expensive for independent researchers to rerun, even if the code
+is public.</strong> Nor can it solve the problem of overly strong
+conclusions that arise from weak theoretical guidance. In that
+situation, the site risks degenerating into an attack on individual
+papers rather than a mechanism for fixing the underlying research
+process.</p>
+<p>As a signal of paper quality, its logic is also weak. The chain “a
+reproducer failed → the author was asked to reply → no reply → public
+shame list” is not strongly correlated with the paper's actual quality.
+A reproduction can fail for many reasons that do not imply an error in
+the paper, and an author can fail to respond for many reasons that do
+not imply guilt. An author who responds and releases code does provide a
+positive signal of reliability; the absence of code, however, does not
+logically prove that the paper is bad or fraudulent. That greatly
+narrows the legitimate role of a site like Paper Without Code.</p>
+<p>This does <strong>not</strong> mean that decentralized community
+oversight should disappear. We need outside discussion and scrutiny to
+challenge rigid institutions and flawed processes, and we need ways to
+question research produced by those systems. But the ultimate goal is
+not to attack one or two specific papers. <strong>The purpose of
+oversight should be to make the research system reliably produce work
+that others can cite and confidently build upon.</strong> Achieving that
+requires channeling and organizing decentralized scrutiny—and eventually
+turning its useful parts into institutionalized procedures.</p>
+<p>That is a much larger problem than either Papers With Code or Paper
+Without Code can solve by itself.</p>
+</main><footer class="blog-footer">© Xianzhe Wang</footer>
+</body>
+</html>

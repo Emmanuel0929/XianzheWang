@@ -1,0 +1,7 @@
+{
+  "name": "xianzhe-wang-personal-site",
+  "private": true,
+  "scripts": {
+    "preview": "python3 -m http.server 8000"
+  }
+}

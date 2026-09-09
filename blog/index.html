@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Chinese originals of Xianzhe Wang's writing on AI and technology.">
+  <title>Writing · Xianzhe Wang</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="blog.css">
+  <link rel="icon" href="../images/logo.jpg">
+</head>
+<body class="blog-page">
+  <header class="blog-header">
+    <a class="blog-brand" href="../index.html">Xianzhe Wang</a>
+    <nav aria-label="Primary navigation"><a href="../index.html">Home</a><a aria-current="page" href="index.html">Writing</a></nav>
+  </header>
+  <main class="blog-shell">
+    <p class="eyebrow">XIAOYAO TECHNOLOGY · 2024</p>
+    <h1>Writing on AI, research, and technology</h1>
+    <p class="lede">A complete Chinese archive, hosted on this site. Each entry also retains a link to its original publication.</p>
+    <div class="language-note"><span>中文全文</span><span aria-hidden="true">·</span><span>站内阅读版</span></div>
+    <section class="post-grid" id="post-grid" aria-label="Posts"></section>
+  </main>
+  <footer class="blog-footer">© Xianzhe Wang · <a href="../index.html">Return to profile</a></footer>
+  <script src="posts.js"></script>
+  <script>
+    document.getElementById('post-grid').innerHTML = POSTS.map(post => `
+      <article class="post-card">
+        <img src="${post.cover}" alt="${post.alt}" loading="lazy">
+        <div class="post-card__body">
+          <p class="post-card__meta">${post.year} · ${post.topic}</p>
+          <h2>${post.titleEn}</h2>
+          <p class="post-card__cn">${post.titleZh}</p>
+          <div class="post-card__actions"><a href="en/${post.id}.html">Read article</a><a href="${post.source}">Original Chinese</a></div>
+        </div>
+      </article>`).join('');
+  </script>
+</body>
+</html>
