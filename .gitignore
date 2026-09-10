@@ -16,3 +16,5 @@ blog/zh-footer.html
 blog/image-map.json
 docs/*
 !docs/CV_Inter.pdf
+!docs/papers/
+!docs/papers/*.pdf

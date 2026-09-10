@@ -39,6 +39,7 @@ jobs:
           cp index.html LICENSE.txt _site/
           cp -R assets images _site/
           cp docs/CV_Inter.pdf _site/docs/
+          cp -R docs/papers _site/docs/
           cp -R blog _site/
           rm -rf _site/blog/zh _site/blog/clean-source _site/blog/translations
           rm -f _site/blog/clean-source.zip _site/blog/article.html _site/blog/zh-header.html _site/blog/zh-footer.html _site/blog/image-map.json
